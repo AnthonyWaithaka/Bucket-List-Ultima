@@ -24,10 +24,15 @@
 	background-color: #8ccee7;
 }
 
+h2 {
+    font-size: 20px;
+    padding-bottom: 50px;
+}
+
 .jumbotron {
 	background-color:#8ccee7;
 	color: #ffffff;
-	padding: 100px 25px;
+	/*padding: 100px 25px;*/
 }
 
 .thumbnail {
@@ -67,7 +72,7 @@
 .panel-heading {
 	color: #ffffff !important;
 	background-color: #8ccee7 !important;
-	padding: 25px;
+	padding: 5px;
 	border-bottom: 1px solid transparent;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
@@ -75,6 +80,6 @@
 	border-bottom-right-radius: 0px;
 }
 
-.logo-small {
-	font-size: 10px;
+.logo-large {
+    padding-left: 10px;
 }

@@ -1,3 +1,7 @@
+.container-fluid {
+	padding: 60px 50px;
+}
+
 .navbar li {
     padding-top: 5px;
     padding-right: 10px;
@@ -7,15 +11,23 @@
 .carousel-inner img {
 	margin:auto;
 }
+.carousel-control.right, .carousel-control,left {
+	background-image: none;
+	color: #8ccee7;
+}
+
+.carousel-indicators li{
+	border-color: #8ccee7;
+}
+
+.carousel-indicators li.active {
+	background-color: #8ccee7;
+}
 
 .jumbotron {
 	background-color:#8ccee7;
 	color: #ffffff;
 	padding: 100px 25px;
-}
-
-.container-fluid {
-	padding: 60px 50px;
 }
 
 .thumbnail {
@@ -28,19 +40,6 @@
 	width: 100%;
 	height: 100%;
 	margin-bottom: 10px;
-}
-
-.carousel-control.right, .carousel-control,left {
-	background-image: none;
-	color: #8ccee7;
-}
-
-.carousel-indicators li{
-	border-color: #8ccee7;
-}
-
-.carousel-indicators li.active {
-	background-color: #8ccee7;
 }
 
 .item h4 {

@@ -2,6 +2,13 @@
 # Bucket-List-Ultima
 An application to plan, record and share achievements/experiences
 
+Current UI 16/7/2017:
+1. Landing page with introductory text and image carousel
+    1.1 Forms to add an account and log in to an existing account
+2. Home page
+3. Bucket list page (responsive) with sections to view and modify bucket lists and activities
+4. Following page
+
 Features of the release version:
 1. Users can create a personal account and log in from the internet
 2. Users can access an offline version of their account
@@ -28,8 +35,8 @@ The file "user/home.html" contains the main interactive page with the following 
     2.3 Access #4
     2.4 Do a search
     2.5 Access #5
-3. A link to "user/MyLists.html"
-4. A link to "user/Following.html" 
+3. A link to "MyLists.html"
+4. A link to "Following.html" 
 5. A tab where the user can:
     5.1 View account profile
         5.1.1 Change account username

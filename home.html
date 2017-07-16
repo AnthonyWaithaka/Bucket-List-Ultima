@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lan="en">
+	
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--Make IE use the latest renderer-->
+		<meta name="viewport" content="width=device-width, initial-scale=1"> <!--Set default viewport-width to device-width-->
+		
+		<title>Bucket List Ultima-Home</title>
+		
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="bodystyle.css">
+	
+	</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<div class="container">
+
+	<nav class="navbar navbar-default">
+		<div class="container">
+			
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#HomeNavbar" aria-expanded="false">
+					<span class="sr-only"></span>
+					<!--The three bars in the button for collapsing the navbar in small screens-->
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span> 
+				</button>
+				<a class="pull-left" href="home.html"><img src="images/newlogo_lg.png" alt="Logo" class="logo-large" style="width:60px; height:50px;"></a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="HomeNavbar">
+				<ul class="nav navbar-nav pull-right">
+					<li><a data-toggle="tab" href="#MyLists">My Lists</a></li>
+                    <li><a data-toggle="tab" href="#Following">Following</a></li>
+                    
+                    <li class="dropdown">
+                        <a href"#" class="dropdown-toggle" data-toggle="dropdown"><img src="images/profile.jpg" alt="ProfileImg" class="logo-large" style="width:40px; height:30px;"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li><a href="index.html">Log Out</a></li>
+                    </li>
+                </ul>
+			</div>
+		</div>
+	</nav>
+
+</div>
+
+<!-- Interactive Section-->
+<div id="mylists" class="container-fluid">
+<h2 class="text-center">My Bucket Lists:</h2>
+	<div class="row text-center">
+		<div class="col-sm-2">
+		<br>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="sel1"><h3>My Lists:<h3></label>
+				<select class="form-control" id="sel1">
+					<option>Example: first year at my job</option>
+					<option>Example: must do this with family!!</option>
+				</select>
+			</div>
+			<div class="row">
+			<img class="thumbnail" src="images/default.jpg" alt="Bucket List Img">
+			<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove logo-small"></span> Delete Bucket List</button>
+			</div>
+			<br>
+			<div class="row">				
+				<form class="form-horizontal">
+					<div class="input-group">
+						<span class="input-group-addon">New List:</span>
+						<input id="msg" type="text" class="form-control" name="msg" placeholder="Example: Before my 80th birthday">
+					</div>
+				</form>
+				<br>
+				<button type="button" class="btn"><span class="glyphicon glyphicon-plus"></span> Add New List</button>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+			<div class="panel-heading text-align"><h3>My Activities</h3></div>
+				<div class="panel-body">
+					<form>
+					<div class="input-group">						
+						<input type="text" class="form-control" placeholder="Example: Give my boss a nice present">
+						<div class="input-group-btn">
+							<button type="button" class="btn"><span class="glyphicon glyphicon-plus"></span> New Activity</button>
+						</div>
+					</div>
+					</form>
+					<br>
+					<p>Example: Jump off the Eiffel Tower <button type="button" class="btn logo-small"><span class="glyphicon glyphicon-minus logo-small"></span></button></p>
+					<p>Example: Beat Ussain Bolt in a race <button type="button" class="btn logo-small"><span class="glyphicon glyphicon-minus logo-small"></span></button></p></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Page Footer -->
+<footer class="foot-bar text-center">
+	<div class="container">
+	<p>This product is not protected by any copyright law :(</p>
+	</div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"> </script>
+<script src="js/bootstrap.min.js"> </script>
+
+
+</body>
+</html>

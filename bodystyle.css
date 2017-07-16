@@ -11,10 +11,11 @@
 .carousel-inner img {
 	margin:auto;
 }
-.carousel-control.right, .carousel-control,left {
+
+.carousel-control.right, .carousel-control.left {
 	background-image: none;
 	color: #8ccee7;
-}
+} 
 
 .carousel-indicators li{
 	border-color: #8ccee7;
@@ -32,7 +33,7 @@ h2 {
 .jumbotron {
 	background-color:#8ccee7;
 	color: #ffffff;
-	/*padding: 100px 25px;*/
+	padding: 100px 25px;
 }
 
 .thumbnail {
@@ -82,4 +83,11 @@ h2 {
 
 .logo-large {
     padding-left: 10px;
+}
+
+.foot-bar {
+    padding-top: 1.4em;
+    padding-bottom: .75em;
+    background: #8ccee7;
+    color: #fff;
 }

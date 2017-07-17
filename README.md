@@ -1,6 +1,6 @@
 
 # Bucket-List-Ultima
-An application to plan, record and share achievements/experiences
+An application to plan, record and share achievements/experiences.
 
 ### Current UI 17/7/2017:
 1. Landing page with introductory text and image carousel
@@ -29,7 +29,7 @@ An application to plan, record and share achievements/experiences
 5. A placeholder document for legal purposes
 
 ![alt text](progress_images/landing2.png "Landing Page - Home")
-![alt text](progress_images/log in.png "Landing Page - Log In tab")
+![alt text](progress_images/'log in.png' "Landing Page - Log In tab")
 ![alt text](progress_images/register.png "Landing Page - Register tab")
 
 

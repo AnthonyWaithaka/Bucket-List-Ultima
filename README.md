@@ -78,7 +78,7 @@ An application to plan, record and share achievements/experiences.
 4. "Unfollow" bucket lists
 5. Comment on other user accounts' "active" bucket list
 
-![alt text](progress_images/following.png "Following")
+![alt text](progress_images/following.jpg "Following")
 ![alt text](progress_images/following2.png "Following - User Bucket List")
 ![alt text](progress_images/following3.png "Following - User Activity")
 

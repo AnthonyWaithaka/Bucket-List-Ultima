@@ -2,14 +2,14 @@
 # Bucket-List-Ultima
 An application to plan, record and share achievements/experiences
 
-Current UI 16/7/2017:
+###Current UI 16/7/2017:
 1. Landing page with introductory text and image carousel
     1.1 Forms to add an account and log in to an existing account
 2. Home page
 3. Bucket list page (responsive) with sections to view and modify bucket lists and activities
 4. Following page
 
-Features of the release version:
+##Features of the release version:
 1. Users can create a personal account and log in from the internet
 2. Users can access an offline version of their account
 3. Users with accounts can create bucket-lists, add activities to them and manipulate both
@@ -17,7 +17,7 @@ Features of the release version:
 5. Users can view bucket lists with status 'active' and their media files
 6. Users with accounts can comment on activities of bucket lists with status 'active'
 
-The file "index.html" contains the landing page of the UI layout. It has the following features:
+##The file "index.html" contains the landing page of the UI layout. It has the following features:
 1. Introductory title and picture slideshow
 2. A navigation bar to:
     2.1 Reload the page
@@ -27,7 +27,7 @@ The file "index.html" contains the landing page of the UI layout. It has the fol
 4. A form to accept input and log in to an existing user account
 5. A placeholder document for legal purposes
 
-The file "user/home.html" contains the main interactive page with the following features:
+###The file "user/home.html" contains the main interactive page with the following features:
 1. A landing with update notifications about followed bucket lists and new comments to user's bucket lists
 2. A navigation bar to:
     2.1 Reload the page
@@ -44,7 +44,7 @@ The file "user/home.html" contains the main interactive page with the following 
         5.1.3 Change account picture
     
 
-The file "MyLists.html" has the following features:
+###The file "MyLists.html" has the following features:
 1. View all bucket lists
 2. Add a bucket list
 3. Remove a bucket list
@@ -59,7 +59,7 @@ The file "MyLists.html" has the following features:
 12. View comment history inside an activity
 13. Make comments inside an activity
 
-The file "Following.html" has the following features:
+###The file "Following.html" has the following features:
 1. Browse other user accounts' "active" bucket lists, their activities and their media files
 2. Activate "follow" on other user accounts' "active" bucket lists
 3. View "followed" bucket lists
@@ -67,7 +67,7 @@ The file "Following.html" has the following features:
 5. Comment on other user accounts' "active" bucket list
 
 
-Instructions for Use (DEMO UI):
+##Instructions for Use (DEMO UI):
 1. Navigate the carousel to view all the images and captions by clicking on the left and right chevrons
 2. Open the "Create Account" tab by clicking on the button on the navigation bar labeled "Create Account"
 3. Enter input to the fields as you wish and navigate to the "verification" page by clicking on the button labeled "Sign Up"

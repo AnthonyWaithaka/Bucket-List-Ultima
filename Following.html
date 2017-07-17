@@ -10,7 +10,7 @@
 		<title>Bucket List Ultima-Following</title>
 		
 		<link rel="stylesheet" href="css/bootstrap.css">
-		<link rel="stylesheet" href="bodystyle.css">
+		<link rel="stylesheet" href="bodystyle.min.css">
 	
 	</head>
 
@@ -57,6 +57,235 @@
 		</div>
 	</nav>
 
+</div>
+
+<!-- Most recent posts by all active bucket lists (for all account users) -->
+<div class="container">
+	<div class="panel panel-default">
+							
+		<div class="panel-heading">
+			<h1 style="padding-left:25px;">Recent Posts:</h1>
+		</div>
+		
+		<div class="panel-body">
+			<!-- New recent posts -->
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-1 col-md-1 col-sm-1 pull-left">
+							<img src="images/profile.jpg" alt="ProfileImg" class="logo-large" style="width:80px; height:70px;">
+							<br>
+							<br>
+							<a href="#" class="btn btn-default btn-xs" role="button" style:"padding-left:100px;">User#32345:</a>
+						</div>
+
+						<div class="col-lg-11 col-md-11 col-sm-11">
+							<p><u><a href="#">Just did this and that, with some other stuff...</a></u></p>
+							
+							<h3>Content preview...</h3><a href="#" class="btn btn-default btn-xs pull-right" role="button">Follow/Unfollow This List</a>
+						</div>
+					</div>					
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-1 col-md-1 col-sm-1 pull-left">
+							<img src="images/profile.jpg" alt="ProfileImg" class="logo-large" style="width:80px; height:70px;">
+							<br>
+							<br>
+							<a href="#" class="btn btn-default btn-xs" role="button" style:"padding-left:100px;">User#32346:</a>
+						</div>
+
+						<div class="col-lg-11 col-md-11 col-sm-11">
+							<p><u><a href="#">I also did this and that, with some other stuff...</a></u></p>
+							
+							<h3>Content preview...</h3><a href="#" class="btn btn-default btn-xs pull-right" role="button">Follow/Unfollow This List</a>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Followed Lists -->
+<div class="container">
+	<div class="panel panel-default">
+							
+		<div class="panel-heading">
+			<h1 style="padding-left:25px;">Followed:</h1>
+		</div>
+		
+		<div class="panel-body">
+
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-1 col-md-1 col-sm-1">
+							<img src="images/profile.jpg" alt="ProfileImg" class="logo-large" style="width:50px; height:40px;">
+						</div>
+						
+						<div class="col-lg-1 col-mid-1 col-sm-1">
+						</div>
+
+						<div class="col-lg-11 col-md-11 col-sm-11">
+							<a href="#" class="btn btn-default btn-lg pull-left" role="button">User#32347:</a><a href="#" class="btn btn-default btn-sm pull-right" role="button">Unfollow This List</a>
+							<br>
+							<div class="tab text-center">
+								<ul>
+									<li><a href="#view1" data-toggle="tab"><u>View</u></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>					
+				</div>
+
+				<div class="panel-footer">
+					<div class="tab-content">
+						<div id="view1" class="tab-pane">
+
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="row">
+										<div class="col-lg-4 col-md-3 col-sm-3">
+											<h1 style="padding-left:20px;">Example bucket list</h1>
+											<h2 style="padding-left:20px;">"The Quote"</h2>
+										</div>
+										<div class="col-lg-8 col-md-3 col-sm-3 text-right">
+											<h3>Days Remaining:</h3>
+											<h3>ddd</h3>
+											<h3>Last Updated:</h3>
+											<h3>dd/mm/yy</h3>
+										</div>
+									</div>
+								</div>
+								
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-lg-3 col-md-3 col-sm-3">
+											<!--Activities List-->
+											<div class="tab">
+												<ul class="nav nav-default">
+													<li><a data-toggle="tab" href="#bL1aL1">Example activity 1</a></li>
+													<li><a data-toggle="tab" href="#bL1aL2">Example activity 2</a></li>
+													<li><a data-toggle="tab" href="#bL1aL3">Example activity 3</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="col-lg-8 col-md-3 col-sm-3">
+											<!--Activities Content-->
+											<div class="tab-content">
+												<div id="bL1aL1" class="tab-pane">
+													<!-- Image Browser -->
+													<div id="bL1aL1Carousel" class="carousel slide" data-ride="carousel">
+														<ol class="carousel-indicators">
+															<li data-target="#bL1aL1Carousel" data-slide-to="0" class="active"></li>
+															<li data-target="#bL1aL1Carousel" data-slide-to="1"></li>
+															<li data-target="#bL1aL1Carousel" data-slide-to="2"></li>
+														</ol>
+
+														<div class="carousel-inner">
+															<div class="item active">
+																<div class="slide1"></div>
+																<img src="images/sample.png" alt="sample">
+															</div>
+
+															<div class="item">
+															<div class="slide2"></div>
+																<img src="images/sample.png" alt="sample">
+															</div>
+
+															<div class="item">
+																<div class="slide3"></div>
+																<img src="images/sample.png" alt="sample">
+															</div>
+														</div>
+
+														<a class="left carousel-control" href="#bL1aL1Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+														<a class="right carousel-control" href="#bL1aL1Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+													</div>
+													<br>
+												</div>
+
+												<div id="bL1aL2" class="tab-pane">
+													<!-- Image Browser -->
+													<div id="bL1aL2Carousel" class="carousel slide" data-ride="carousel">
+														<ol class="carousel-indicators">
+															<li data-target="#bL1aL2Carousel" data-slide-to="0" class="active"></li>
+															<li data-target="#bL1aL2Carousel" data-slide-to="1"></li>
+															<li data-target="#bL1aL2Carousel" data-slide-to="2"></li>
+														</ol>
+
+														<div class="carousel-inner">
+															<div class="item active">
+																<div class="slide1"></div>
+																<img src="images/samplehf.png" alt="sample">
+															</div>
+
+															<div class="item">
+															<div class="slide2"></div>
+																<img src="images/samplehf.png" alt="sample">
+															</div>
+
+															<div class="item">
+																<div class="slide3"></div>
+																<img src="images/samplehf.png" alt="sample">
+															</div>
+														</div>
+
+														<a class="left carousel-control" href="#bL1aL2Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+														<a class="right carousel-control" href="#bL1aL2Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+													</div>
+												</div>
+
+												<div id="bL1aL3" class="tab-pane">
+													<!-- Image Browser -->
+													<div id="bL1aL3Carousel" class="carousel slide" data-ride="carousel">
+														<ol class="carousel-indicators">
+															<li data-target="#bL1aL3Carousel" data-slide-to="0" class="active"></li>
+															<li data-target="#bL1aL3Carousel" data-slide-to="1"></li>
+															<li data-target="#bL1aL3Carousel" data-slide-to="2"></li>
+														</ol>
+
+														<div class="carousel-inner">
+															<div class="item active">
+																<div class="slide1"></div>
+																<img src="images/samplevf.png" alt="sample">
+															</div>
+
+															<div class="item">
+															<div class="slide2"></div>
+																<img src="images/samplevf.png" alt="sample">
+															</div>
+
+															<div class="item">
+																<div class="slide3"></div>
+																<img src="images/samplevf.png" alt="sample">
+															</div>
+														</div>
+
+														<a class="left carousel-control" href="#bL1aL3Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+														<a class="right carousel-control" href="#bL1aL3Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+									<h3>Comments...</h3>
+									<!--Blog-style comment forms and output go here-->
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
 </div>
 
 

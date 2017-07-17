@@ -29,7 +29,7 @@ An application to plan, record and share achievements/experiences.
 5. A placeholder document for legal purposes
 
 ![alt text](progress_images/landing2.png "Landing Page - Home")
-![alt text](progress_images/'log in.png' "Landing Page - Log In tab")
+![alt text](progress_images/log_in.png "Landing Page - Log In tab")
 ![alt text](progress_images/register.png "Landing Page - Register tab")
 
 
@@ -67,8 +67,8 @@ An application to plan, record and share achievements/experiences.
 12. View comment history inside an activity
 13. Make comments inside an activity
 
-![alt text](progress_images/rev01_my lists.png "My Lists")
-![alt text](progress_images/rev01_my lists2.png "My Lists - Activity 1")
+![alt text](progress_images/rev01_my_lists.png "My Lists")
+![alt text](progress_images/rev01_my_lists2.png "My Lists - Activity 1")
 
 
 ### The file "Following.html" has the following features:

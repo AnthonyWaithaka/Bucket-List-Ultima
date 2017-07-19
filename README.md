@@ -28,9 +28,9 @@ An application to plan, record and share achievements/experiences.
 4. A form to accept input and log in to an existing user account
 5. A placeholder document for legal purposes
 
-![alt text](progress_images/landing2.png "Landing Page - Home")
-![alt text](progress_images/log_in.png "Landing Page - Log In tab")
-![alt text](progress_images/register.png "Landing Page - Register tab")
+![alt text](design/progress_images/landing2.png "Landing Page - Home")
+![alt text](design/progress_images/log_in.png "Landing Page - Log In tab")
+![alt text](design/progress_images/register.png "Landing Page - Register tab")
 
 
 ### The file "home.html" contains the main interactive page with the following features:
@@ -49,7 +49,7 @@ An application to plan, record and share achievements/experiences.
         5.1.2 Change account password
         5.1.3 Change account picture
     
-![alt text](progress_images/home.png "Home")
+![alt text](design/progress_images/home.png "Home")
 
 
 ### The file "MyLists.html" has the following features:
@@ -67,8 +67,8 @@ An application to plan, record and share achievements/experiences.
 12. View comment history inside an activity
 13. Make comments inside an activity
 
-![alt text](progress_images/rev01_my_lists.png "My Lists")
-![alt text](progress_images/rev01_my_lists2.png "My Lists - Activity 1")
+![alt text](design/progress_images/rev01_my_lists.png "My Lists")
+![alt text](design/progress_images/rev01_my_lists2.png "My Lists - Activity 1")
 
 
 ### The file "Following.html" has the following features:
@@ -78,9 +78,9 @@ An application to plan, record and share achievements/experiences.
 4. "Unfollow" bucket lists
 5. Comment on other user accounts' "active" bucket list
 
-![alt text](progress_images/following.jpg "Following")
-![alt text](progress_images/following2.png "Following - User Bucket List")
-![alt text](progress_images/following3.png "Following - User Activity")
+![alt text](design/progress_images/following.jpg "Following")
+![alt text](design/progress_images/following2.png "Following - User Bucket List")
+![alt text](design/progress_images/following3.png "Following - User Activity")
 
 
 ## Instructions for Use (DEMO UI):

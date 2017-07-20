@@ -1,144 +1,164 @@
 # server.py
+"""Server module -
+See documentation for use
+"""
 
 import re
-from app.client import bluClient
+from app.client import Client
 
-client_email_list = []
-client_password_list = []
-client_id_list = []
-client_list = {}
-client_access_list = {}
+class Server(object):
+    """Server class -
+    Contains the main app management
+    variables and functions
+    """
+    client_email_list = []
+    client_password_list = []
+    client_id_list = []
+    client_list = {}
+    client_access_list = {}
 
-class bluServer(object):
-    
     def __init__(self):
         pass
-    
-    def validateEmail(self, userEmail):
-        global client_email_list
-        global client_email_counter
-        match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', userEmail)
 
-        if match == None and match.isalpha():
+    def validate_email(self, user_email):
+        """Checks that input email address
+        is a string in standard format
+        """
+        match = re.match(
+            '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$',
+            user_email)
+
+        if match is None:
             return False
         else:
-            return userEmail
+            return user_email
 
-    def checkEmailRepeat(self, userEmail):
-        global client_email_list
-        
+    def check_email_repeat(self, user_email):
+        """Checks if the input email address
+        already exists in the record
+        """
         checker = False
-        for i in client_email_list:
-            if i == userEmail:
-                checker = True
-                return checker
-        return checker
-    
-    def checkPasswordRepeat(self, userPassword):
-        global client_password_list
-        
-        checker = False
-        for i in client_password_list:
-            if i == userPassword:
+        for i in self.client_email_list:
+            if i == user_email:
                 checker = True
                 return checker
         return checker
 
-    def checkUsernameRepeat(self, userName):
-        global client_id_list
-
+    def check_password_repeat(self, user_password):
+        """Checks if the input password
+        aready exists in the record
+        """
         checker = False
-        for i in client_id_list:
-            if i == userName:
+        for i in self.client_password_list:
+            if i == user_password:
                 checker = True
                 return checker
         return checker
 
-    def createClient(self, userEmail, userName, userPassword, terms_and_conditions):
-        global client_list
-        global client_email_counter
-        global client_email_list
-        global client_id_list
-        global client_password_counter
-        global client_password_list
+    def check_username_repeat(self, user_name):
+        """Checks if the input username
+        already exists in the record
+        """
+        checker = False
+        for i in self.client_id_list:
+            if i == user_name:
+                checker = True
+                return checker
+        return checker
 
-        if terms_and_conditions is False:
-            return 1
-        
-        new_user_email = self.validateEmail(userEmail)
-        
-        if new_user_email is False:
-            return 2
+    def create_client(self, user_email, user_name, user_password, terms_and_conditions):
+        """Creates a Client object initialized
+        to the input data
+        """
+        new_user_email = self.validate_email(user_email)
 
-        if self.checkEmailRepeat(new_user_email) is True:
-            return 3
+        if not terms_and_conditions:
+            return None
 
-        if self.checkPasswordRepeat(userPassword) is True:
-            return 4
+        if self.check_email_repeat(new_user_email):
+            return None
 
-        if self.checkUsernameRepeat(userName) is True:
-            return 5
+        if self.check_password_repeat(user_password):
+            return None
 
-        client_email_list.append(userEmail)
+        if self.check_username_repeat(user_name):
+            return None
 
-        client_password_list.append(userPassword)
-        
-        client_id_list.append(userName)
+        self.client_email_list.append(new_user_email)
 
-        client_list.update({userName:(userEmail,userPassword)})
+        self.client_password_list.append(user_password)
+
+        self.client_id_list.append(user_name)
+
+        self.client_list.update({user_name:(new_user_email, user_password)})
 
         #create a client object initialized with client_id, email_address and pwd
-        newClient = bluClient(userName, userEmail, userPassword)
+        new_client = Client(user_name, new_user_email, user_password)
 
         #add client_id and associated object to client_access_list
-        client_access_list.update({userName:newClient})
+        self.client_access_list.update({user_name:new_client})
 
         #return the new client object
-        return newClient
+        return new_client
 
-    def deleteClient(self, bluclient):        
-        for key,obj in client_access_list.items():
-            if obj == bluclient: #bluclient is object
-                holder = client_list[key] #holder is (email,pwd)
-                client_id_list.remove(key)
-                client_email_list.remove(holder[0])
-                client_password_list.remove(holder[1])
-                del client_access_list[key]
-                del client_list[key]
-                for j in client_id_list:
+    def delete_client(self, clientname):
+        """Deletes a Client object and scans
+        for remnant data. Returns True for error
+        and None for no error
+        """
+        for key in list(self.client_access_list.keys()):
+            checker = None
+            if key == clientname:
+                holder = self.client_list[key]    #holder is (email,pwd)
+                self.client_id_list.remove(key)
+                self.client_email_list.remove(holder[0])
+                self.client_password_list.remove(holder[1])
+                del self.client_access_list[key]
+                del self.client_list[key]
+
+                for j in self.client_id_list:
                     if j == key:
-                        return 2
-                for k in client_email_list:
+                        checker = True
+                for k in self.client_email_list:
                     if k == holder[0]:
-                        return 3
-                for l in client_password_list:
-                    if l == holder[1]:
-                        return 3
-                for m in list(client_access_list.values()):
-                    if m == key:
-                        return 3
-                for n in list(client_list.keys()):
-                    if n == key:
-                        return 3
-                return True
-            return 2
+                        checker = True
+                for pwd in self.client_password_list:
+                    if pwd == holder[1]:
+                        checker = True
+                for clientid in list(self.client_access_list.values()):
+                    if clientid == key:
+                        checker = True
+                for clientname in list(self.client_list.keys()):
+                    if clientname == key:
+                        checker = True
+            return checker
 
-    def viewClient(self, username):
-        for i in client_id_list:
+    def view_client(self, username):
+        """Use a client's username
+        to return an unsorted list
+        of their bucket lists or None
+        """
+        for i in self.client_id_list:
             if username == i:
-                holder = client_access_list[username]
-                return list(holder.bL_list.values())
-        return 1
-
-    def viewbList(self, listname, username):
-        holder = client_access_list[username]
-        if holder.viewList(listname) != None:
-            return holder.viewList(listname)
+                holder = self.client_access_list[username]
+                return list(holder.bucket_lists.values())
         return None
 
-    def searchClient(self, useremail):
-        for i in client_id_list:
-            holder = client_list[i]
+    def view_bucket_list(self, listname, username):
+        """Uses a bucket list name and username
+        to return the bucket list object or None
+        """
+        holder = self.client_access_list[username]
+        if holder.view_list(listname) != None:
+            return holder.view_list(listname)
+        return None
+
+    def search_client(self, useremail):
+        """Uses a useremail to return
+        a username or None
+        """
+        for i in self.client_id_list:
+            holder = self.client_list[i]
             if holder[0] == useremail:
                 return i
-        return False
+        return None

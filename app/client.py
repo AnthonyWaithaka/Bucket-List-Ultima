@@ -71,6 +71,20 @@ class Client(object):
         self.followed_lists.append(list_name)
         return True
 
-    #def viewOtherList(self, bulist):
-    #    bluServer.viewClient()
-    # I don't think it's possible to view someone's list like this. It should be a server method
+    def reset_username(self, username):
+        """Replace the current username
+        """
+        self.user_name = username
+        return None
+
+    def reset_useremail(self, useremail):
+        """Replace the current useremail
+        """
+        self.user_email = useremail
+        return None
+
+    def reset_userpassword(self, userpassword):
+        """Replace the current userpassword
+        """
+        self.user_password = userpassword
+        return None

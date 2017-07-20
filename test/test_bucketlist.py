@@ -44,3 +44,13 @@ class ServerTestCase(unittest.TestCase):
         self.bucket_list.edit_status('climb mt everest')
         self.assertEqual(self.bucket_list.view_activity('climb mt everest', 'status'),
                          True, msg="Activity status not changed")
+
+    def test_deleted_activity(self):
+        """Test for successful deletion
+        """
+        self.bucket_list.create_activity('climb mt everest',
+                                         ['.app/templates/static/images/climbmt'],
+                                         False)
+        self.bucket_list.delete_activity('climb mt everest')
+        self.assertEqual(self.bucket_list.view_activity('climb mt everest', 'status'),
+                                                        None, msg="Activity not deleted")

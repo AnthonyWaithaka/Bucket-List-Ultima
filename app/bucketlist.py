@@ -50,3 +50,11 @@ class BucketList(object):
             if i == activity_name:
                 self.activity_list[activity_name].flip_status()
         return None
+
+    def delete_activity(self, activity_name):
+        """Deletes an activity
+        """
+        for i in list(self.activity_list.keys()):
+            if i == activity_name:
+                del self.activity_list[activity_name]
+        return None

@@ -24,3 +24,11 @@ class Activity(object):
         """
         self.media_path_list.append(path_name)
         return None
+
+    def remove_media(self, path_name):
+        """Removes media path from list
+        """
+        for i in self.media_path_list:
+            if i == path_name:
+                self.media_path_list.remove(path_name)
+        return None

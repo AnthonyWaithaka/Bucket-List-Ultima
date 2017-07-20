@@ -51,3 +51,20 @@ class ServerTestCase(unittest.TestCase):
                                       "I feel like a million bucks", True)
         self.assertIsInstance(self.server.view_bucket_list('List_01', 'guy5'),
                               BucketList, msg="Bucket list creation unsuccessful")
+
+    def test_client_reset_details(self):
+        """Test that client data can be updated successfully
+        First argument must be username
+        Optional arguments are:
+        'newusername'
+        'oldpassword'
+        'newpassword'
+        'oldemail'
+        'newemail'
+        """
+        new_client = self.server.create_client('something6@yes.com', 'guy6', 'aaa117', True)
+        new_client.create_bucket_list('Cartoon binge', 2018, "January",
+                                      "I feel like a million bucks", True)
+        self.server.reset_client('guy6', newusername='guy7')
+        bucket_list = self.server.view_bucket_list('Cartoon binge', 'guy7')
+        self.assertEqual(bucket_list.list_name, 'Cartoon binge', msg="Username change unsuccessful")

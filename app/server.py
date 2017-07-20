@@ -162,3 +162,50 @@ class Server(object):
             if holder[0] == useremail:
                 return i
         return None
+
+    def reset_client(self, username, **kwargs):
+        """Resets any of the following of clients object's data:
+        1. client username
+        2. client useremail
+        3. client userpassword
+        """
+        newusername = kwargs.get('newusername', None)
+        oldpassword = kwargs.get('oldpassword', None)
+        newpassword = kwargs.get('newpassword', None)
+        oldemail = kwargs.get('oldemail', None)
+        newemail = kwargs.get('newemail', None)
+        checker_email = False
+        checker_password = False
+        checker_username = False
+        if newusername is not None:
+            if self.check_username_repeat(username) is True:
+                if self.check_username_repeat(newusername) is not True:
+                    holder = self.client_id_list.index(username)
+                    self.client_id_list[holder] = newusername
+                    self.client_list[newusername] = self.client_list.pop(username)
+                    self.client_access_list[newusername] = self.client_access_list.pop(username)
+                    self.client_access_list[newusername].reset_username(newusername)
+                    checker_username = self.check_username_repeat(username)
+
+        if newemail is not None and oldemail is not None:
+            if self.check_email_repeat(oldemail) is True:
+                if self.check_email_repeat(newemail) is not True:
+                    holder = self.client_id_list.index(oldemail)
+                    self.client_email_list[holder] = newemail
+                    self.client_access_list[username][0] = newemail
+                    self.client_access_list[username].reset_useremail(newemail)
+                    checker_email = self.check_email_repeat(oldemail)
+
+        if  oldpassword is not None and newpassword is not None:
+            if self.check_password_repeat(oldpassword) is True:
+                if self.check_password_repeat(newpassword) is not True:
+                    holder = self.client_password_list.index(oldpassword)
+                    self.client_password_list[holder] = newpassword
+                    self.client_list[username][1] = newpassword
+                    self.client_access_list[username].reset_userpassword(newpassword)
+                    checker_password = self.check_password_repeat(oldpassword)
+
+        if checker_email or checker_password or checker_username:
+            return False
+
+        return None

@@ -3,11 +3,11 @@
 See documentation for use
 """
 
-from app.activity import Activity
+from app import Activity
 
 class BucketList(object):
     """BucketList class -
-    Has specific methods for activity management
+    Has methods for bucketlist management
     """
     def __init__(self, list_name, list_year, list_month, list_quote, set_active):
         self.list_name = list_name

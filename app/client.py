@@ -88,3 +88,28 @@ class Client(object):
         """
         self.user_password = userpassword
         return None
+
+    def reset_bucketlist(self, listname, **kwargs):
+        """Reset bucket list data
+        """
+        newlistname = kwargs.get('newlistname', None)
+        newlistyear = kwargs.get('year', None)
+        newlistmonth = kwargs.get('month', None)
+        newlistquote = kwargs.get('quote', None)
+        for i in list(self.bucket_lists.keys()):
+            if i == listname:
+                if newlistyear is not None:
+                    self.bucket_lists[listname].list_year = newlistyear
+
+                if newlistmonth is not None:
+                    self.bucket_lists[listname].list_month = newlistmonth
+
+                if newlistquote is not None:
+                    self.bucket_lists[listname].list_quote = newlistquote
+
+                if newlistname is not None:
+                    self.bucket_lists[newlistname] = self.bucket_lists.pop(listname)
+                    self.bucket_lists[newlistname].list_name = newlistname
+
+                return None
+        return False

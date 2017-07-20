@@ -177,15 +177,6 @@ class Server(object):
         checker_email = False
         checker_password = False
         checker_username = False
-        if newusername is not None:
-            if self.check_username_repeat(username) is True:
-                if self.check_username_repeat(newusername) is not True:
-                    holder = self.client_id_list.index(username)
-                    self.client_id_list[holder] = newusername
-                    self.client_list[newusername] = self.client_list.pop(username)
-                    self.client_access_list[newusername] = self.client_access_list.pop(username)
-                    self.client_access_list[newusername].reset_username(newusername)
-                    checker_username = self.check_username_repeat(username)
 
         if newemail is not None and oldemail is not None:
             if self.check_email_repeat(oldemail) is True:
@@ -204,6 +195,16 @@ class Server(object):
                     self.client_list[username][1] = newpassword
                     self.client_access_list[username].reset_userpassword(newpassword)
                     checker_password = self.check_password_repeat(oldpassword)
+
+        if newusername is not None:
+                    if self.check_username_repeat(username) is True:
+                        if self.check_username_repeat(newusername) is not True:
+                            holder = self.client_id_list.index(username)
+                            self.client_id_list[holder] = newusername
+                            self.client_list[newusername] = self.client_list.pop(username)
+                            self.client_access_list[newusername] = self.client_access_list.pop(username)
+                            self.client_access_list[newusername].reset_username(newusername)
+                            checker_username = self.check_username_repeat(username)
 
         if checker_email or checker_password or checker_username:
             return False

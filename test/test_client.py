@@ -48,3 +48,17 @@ class ServerTestCase(unittest.TestCase):
         self.client.create_bucket_list('List_04', 2017, "August", "This is the big one", True)
         self.client.follow_list('List04')
         self.assertEqual(self.client.follow_list('List04'), False, msg="List unfollow failed")
+
+    def test_bucket_list_reset(self):
+        """Test that bucketlist data can be updated successfully
+        First argument must be listname
+        Optional arguments are:
+        'newlistname'
+        'year'
+        'month'
+        'quote'
+        """
+        new_list = self.client.create_bucket_list('Coco List',
+                                                  2017, "August", "This is the big one", True)
+        self.client.reset_bucketlist('Coco List', newlistname='Coffee List')
+        self.assertEqual(new_list.list_name, 'Coffee List', msg="List update failed")

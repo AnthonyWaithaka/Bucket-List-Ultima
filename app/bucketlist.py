@@ -58,3 +58,11 @@ class BucketList(object):
             if i == activity_name:
                 del self.activity_list[activity_name]
         return None
+
+    def reset_activity(self, activity_name, newname):
+        """Reset activity name
+        """
+        for i in list(self.activity_list.keys()):
+            if i == activity_name:
+                self.activity_list[newname] = self.activity_list.pop(activity_name)
+                self.activity_list[newname].activity_name = newname

@@ -1,12 +1,25 @@
 # app/__init__.py
+"""Flask Initialization -
+used by the run.py file
+"""
 
+# third-party imports
 from flask import Flask
+from flask_login import LoginManager
 
-# Initialize the app
-app = Flask(__name__, instance_relative_config=True)
+# local imports
+from config import APP_CONFIG
 
-# Load the views
-from app import views
+login_manager = LoginManager()
 
-# Load the config file
-app.config.from_object('config')
+def create_app(config_name):
+    """Initializing Flask
+    """
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_object(APP_CONFIG[config_name])
+
+    login_manager.init_app(app)
+    login_manager.login_message = "You must be logged in to access this page."
+    login_manager.login_view = "auth.login"
+
+    return app

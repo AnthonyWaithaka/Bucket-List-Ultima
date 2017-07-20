@@ -26,3 +26,27 @@ class BucketList(object):
         new_activity = Activity(activity_name, media_path_list, achieved_status)
         self.activity_list.update({activity_name:new_activity})
         return new_activity
+
+    def view_activity(self, activity_name, *args):
+        """Given an activity name as argument
+        and a property type
+        Returns the respective property type data
+        """
+        for i in list(self.activity_list.keys()):
+            if i == activity_name:
+                for arg in args:
+                    if arg == 'media_list':
+                        return self.activity_list[activity_name].media_path_list
+                    elif arg == 'status':
+                        return self.activity_list[activity_name].status_
+        return None
+
+    def edit_status(self, activity_name):
+        """Given an activity name as argument
+        Can edit the achieved status of
+        the respective activity object
+        """
+        for i in list(self.activity_list.keys()):
+            if i == activity_name:
+                self.activity_list[activity_name].flip_status()
+        return None

@@ -26,10 +26,21 @@ class ServerTestCase(unittest.TestCase):
 
     def test_view_activity(self):
         """Test for successful return of activity object data
+        Can return either 'media_list' or 'status'
         """
-        pass
+        self.bucket_list.create_activity('climb mt everest',
+                                         ['.app/templates/static/images/climbmt'],
+                                         False)
+        activity_data = self.bucket_list.view_activity('climb mt everest', 'media_list')
+        self.assertEqual(activity_data[0], '.app/templates/static/images/climbmt',
+                         msg="Activity property not returned")
 
-    def test_edit_activity(self):
+    def test_edit_activity_status(self):
         """Test for successful edit of activity object data
         """
-        pass
+        self.bucket_list.create_activity('climb mt everest',
+                                         ['.app/templates/static/images/climbmt'],
+                                         False)
+        self.bucket_list.edit_status('climb mt everest')
+        self.assertEqual(self.bucket_list.view_activity('climb mt everest', 'status'),
+                         True, msg="Activity status not changed")

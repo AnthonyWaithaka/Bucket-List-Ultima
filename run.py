@@ -1,12 +1,13 @@
 # run.py
-"""Launches the Flask application
+"""Application run file
 """
-import os
+#import os
 
-from app import create_app
+from app import APP
 
-CONFIG_NAME = os.getenv('FLASK_CONFIG')
-app = create_app(CONFIG_NAME)
+#CONFIG_NAME = os.getenv('FLASK_CONFIG')
+
+#APP = create_app(CONFIG_NAME)
 
 if __name__ == '__main__':
-    app.run()
+    APP.run()

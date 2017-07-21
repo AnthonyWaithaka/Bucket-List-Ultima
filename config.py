@@ -1,12 +1,11 @@
 # config.py
-"""File used by Flask to
-determine run settings
+"""Testing configurations
+for different app uses
 """
 
 class Config(object):
     """Common configurations
     """
-    # Configurations common across all environments
 
 class DevelopmentConfig(Config):
     """Development configurations
@@ -18,7 +17,13 @@ class ProductionConfig(Config):
     """
     DEBUG = False
 
+class TestingConfig(Config):
+    """Testing configurations
+    """
+    TESTING = True
+
 APP_CONFIG = {
     'development': DevelopmentConfig,
-    'production': ProductionConfig
+    'production': ProductionConfig,
+    'testing': TestingConfig
 }

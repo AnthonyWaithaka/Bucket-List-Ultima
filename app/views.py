@@ -1,21 +1,51 @@
-# app/views.py
+# views.py
+"""Main Program -
+Data is stored in class variables
+for module application
+"""
+from flask import render_template, redirect, url_for
+from flask import request
 
-from flask import render_template
-from flask import Blueprint
-from flask_login import login_required
-from . import app
-homer = Blueprint('homer', __name__)
-app.register_blueprint(homer)
+from app import APP
+from app.application import Application
 
-@homer.route('/')
-def homepage():
-    """Render homepage template on / route
+NEWAPP = Application()
+
+#@APP.route('/')
+#def index():
+#    """Responds to submit trigger
+#    """
+#    return render_template("index.html")
+
+@APP.route('/index')
+def index():
+    """Sign in validation
     """
-    return render_template('/home/index.html', title="Welcome")
+    #useremail = request.form['inpEmail']
+    #userpassword = request.form['inpPass']
+    #userpassword2 = request.form['inpPass2']
+    #username = request.form['inpUName']
+    #tnc = request.form['inpTnC']
+    #operation on text
+    #if Application.validate_email(useremail) and not Application.check_email_repeat(useremail):
+    #    if not Application.check_password_repeat(userpassword):
+    #        if userpassword == userpassword2:
+    #            if not Application.check_username_repeat(username) and tnc:
+    #                Application.create_user(useremail,username,userpassword,tnc)
+    #                #return redirect('home.html')
+    #                open('.template/home.html').read()
+    return render_template('index.html')
 
-@homer.route('/dashboard')
-@login_required
-def dashboard():
-    """Render the dashboard template on the /dashboard route
+@APP.route('/signup/', methods=['POST'])
+def sign_up():
+    if request.form['submit'] == 'Sign Up':
+        #useremail = request.form['email']
+        #result = NEWAPP.check_email_repeat(useremail)
+        return redirect(url_for('home'))
+    return render_template('index.html')
+
+@APP.route('/home')
+def home():
+    """Home Page -
     """
-    return render_template('home/dashboard.html', title="Dashboard")
+    return render_template("home.html")

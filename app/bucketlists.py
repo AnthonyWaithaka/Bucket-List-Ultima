@@ -59,8 +59,12 @@ class BucketLists(object):
                         return False
                 return True
 
-    def reset_bucketlist(self, listname, **kwargs):
-        """Reset bucket list data
+    def update_bucketlist(self, listname, **kwargs):
+        """Update bucket list data -
+        newlistname
+        year
+        month
+        quote
         """
         newlistname = kwargs.get('newlistname', None)
         newlistyear = kwargs.get('year', None)

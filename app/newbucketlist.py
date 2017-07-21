@@ -4,8 +4,8 @@ New bucketlist initialization
 """
 
 class NewBucketList(object):
-    """BucketList class -
-    Has methods for bucketlist management
+    """NewBucketList class -
+    Has methods for activities management
     """
     def __init__(self, list_name, list_year, list_month, list_quote, set_active):
         self.list_name = list_name
@@ -16,7 +16,7 @@ class NewBucketList(object):
         self.activity_list = {}    #activity_list will have {name:object} format
 
     def create_activity(self, activity_name, media_path_list, achieved_status):
-        """Creates a new activity and stores it
+        """Returns Activity object or None
         """
         for i in list(self.activity_list.keys()):
             if i == activity_name:
@@ -26,9 +26,10 @@ class NewBucketList(object):
         return new_activity
 
     def view_activity(self, activity_name, *args):
-        """Given an activity name as argument
-        and a property type
-        Returns the respective property type data
+        """For Arguments,
+        'activity_name' returns None
+        'media_list' returns media path list
+        'status' returns status
         """
         for i in list(self.activity_list.keys()):
             if i == activity_name:
@@ -40,9 +41,7 @@ class NewBucketList(object):
         return None
 
     def edit_status(self, activity_name):
-        """Given an activity name as argument
-        Can edit the achieved status of
-        the respective activity object
+        """Return None
         """
         for i in list(self.activity_list.keys()):
             if i == activity_name:
@@ -50,20 +49,23 @@ class NewBucketList(object):
         return None
 
     def delete_activity(self, activity_name):
-        """Deletes an activity
+        """Delete an activity
+        Return None
         """
         for i in list(self.activity_list.keys()):
             if i == activity_name:
                 del self.activity_list[activity_name]
         return None
 
-    def reset_activity(self, activity_name, newname):
-        """Reset activity name
+    def update_activity(self, activity_name, newname):
+        """Update activity name
+        Return None
         """
         for i in list(self.activity_list.keys()):
             if i == activity_name:
                 self.activity_list[newname] = self.activity_list.pop(activity_name)
                 self.activity_list[newname].activity_name = newname
+        return None
 
 class Activity(object):
     """Activity Class -
@@ -75,20 +77,23 @@ class Activity(object):
         self.status_ = status_
 
     def flip_status(self):
-        """Changes the status from true
+        """Change the status from true
         to false and vice versa
+        Return None
         """
         self.status_ = not self.status_
         return None
 
     def add_media(self, path_name):
         """Adds a media path to the list
+        Return None
         """
         self.media_path_list.append(path_name)
         return None
 
     def remove_media(self, path_name):
         """Removes media path from list
+        Return None
         """
         for i in self.media_path_list:
             if i == path_name:

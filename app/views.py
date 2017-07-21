@@ -17,48 +17,14 @@ def index():
     """
     return render_template('index.html')
 
-@APP.route('/signupfailed/', methods=['GET','POST'])
+@APP.route('/signup')
 def sign_up():
-    """Register a new user
+    """Register user
     """
-    if request.form['submit'] == 'Sign Up':
-        tnc = False
-        useremail = request.form['email']
-        userpassword = request.form['pass']
-        userpassword2 = request.form['pass2']
-        username = request.form['user']
-        tnc = request.form['TnC']
+    return render_template('index.html')
 
-        if tnc is not True:
-            return render_template('index.html', message="You must accept terms and conditions")
-
-        #operation on input
-        if userpassword == userpassword2:
-            if USER.create_user(useremail, username, userpassword, tnc) is not None:
-                session['newuser'] = username
-                return redirect('home')
-            else:
-                return render_template('index.html', message="Cannot create new account")
-        else:
-            return render_template('index.html', message="Password already exists")
-    else:
-        return render_template('index.html', message="Username/Email already exists")
-
-@APP.route('<user>/home')
-def home():
-    """Home Page
+@APP.route('/login')
+def log_in():
+    """Login user
     """
-    user = session['newuser']
-    return render_template('home.html')
-
-@APP.route('/bucketlists')
-def bucketlists():
-    """BucketList Management Page
-    """
-    return render_template('MyLists.html')
-
-@APP.route('/following')
-def following():
-    """Following Page
-    """
-    return render_template('Following.html')
+    return render_template('index.html')

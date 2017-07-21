@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--Make IE use the latest renderer-->
 		<meta name="viewport" content="width=device-width, initial-scale=1"> <!--Set default viewport-width to device-width-->
 		
-		<title>{{ title }} | Bucket List Ultima</title>
+		<title>Bucket List Ultima</title>
 		
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/bodystyle.min.css') }}">
@@ -124,7 +124,7 @@
 						</div>
 						
 						<div class="panel-body">
-							<form action="/signup/" method="POST">
+							<form action={{url_for('sign_up')}} method="POST">
 								<br>
 								<div class="form-group">
 									<label for="inputsm" class="control-label">Email Address:</label>
@@ -142,11 +142,17 @@
 									<label for="inputPassword2">Confirm Password:</label>
 									<input name="pass2" type="password" class="form-control">
 								</div>
+								<div class="checkbox">
+									<label><input name="TnC" type="checkbox" value="True">I agree to the <a href="{{ url_for('static', filename='docs/TermsandConditions.pdf') }}">Terms and Conditions</a></label>
+								</div>
+								<input type="submit" name="submit" value="Sign Up" class="btn btn-info btn-lg" role="button">
+								{% if message %}
+								<br>
+								<br>
+								<p class="text-center" style="color:red;" >{{ message }}</p>
+								{% endif %}
 							</form>
-							<div class="checkbox">
-								<label><input name="TnC" type="checkbox" value="">I agree to the <a href="{{ url_for('static', filename='docs/TermsandConditions.pdf') }}">Terms and Conditions</a></label>
-							</div>
-							<input type="submit" name="submit" value="Sign Up" class="btn btn-info btn-lg" role="button">
+								
 						</div>
 					</div>
 				</div>

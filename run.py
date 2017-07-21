@@ -1,13 +1,9 @@
 # run.py
 """Application run file
 """
-#import os
-
 from app import APP
 
-#CONFIG_NAME = os.getenv('FLASK_CONFIG')
-
-#APP = create_app(CONFIG_NAME)
+APP.secret_key = "secret key"
 
 if __name__ == '__main__':
     APP.run()

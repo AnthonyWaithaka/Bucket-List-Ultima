@@ -71,6 +71,9 @@ class Application(object):
         if not terms_and_conditions:
             return None
 
+        if not self.validate_email(user_email):
+            return None
+
         if self.check_email_repeat(new_user_email):
             return None
 

@@ -1,1 +1,5 @@
-{}
+{
+  "test/test_activities.py": true,
+  "test/test_application.py": true,
+  "test/test_bucketlists.py": true
+}

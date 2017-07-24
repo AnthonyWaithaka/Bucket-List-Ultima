@@ -3,12 +3,11 @@
 Data is stored in class variables
 for module application
 """
-from flask import render_template, flash, redirect, session
+from flask import render_template, redirect, session
 from flask import request, url_for
 
 from app import APP
 from app.application import Application
-from .forms import SignUpForm
 
 NEWAPP = Application()
 
@@ -54,7 +53,7 @@ def log_in():
     """
     email = request.form['logemail']
     password = request.form['logpassword']
-    
+
     if NEWAPP.validate_email(email) is False:
         if NEWAPP.check_username_repeat(email) is True:
             #check that password matches username
@@ -82,16 +81,19 @@ def log_in():
 def home():
     """Home page
     """
+    #Load session user's homepage
     return render_template('home.html')
 
 @APP.route('/mylists')
 def bucketlists():
     """BucketLists page
     """
+    #Load session user's bucketlists page
     return render_template("MyLists.html")
 
 @APP.route('/following')
 def following():
     """Following page
     """
+    #Load session user's following page
     return render_template("Following.html")

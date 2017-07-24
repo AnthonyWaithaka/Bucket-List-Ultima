@@ -6,6 +6,8 @@ for different app uses
 class Config(object):
     """Common configurations
     """
+    WTF_CSRF_ENABLED = True
+    SECRET_KEY = 'default-secret-key'
 
 class DevelopmentConfig(Config):
     """Development configurations

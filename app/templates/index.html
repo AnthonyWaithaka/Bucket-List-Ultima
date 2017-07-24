@@ -17,12 +17,11 @@
 	</head>
 
 <body>
+
 <!-- Navigation Bar -->
 <div class="container">
-
 	<nav class="navbar navbar-default">
 		<div class="container">
-			
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#IndexNavbar" aria-expanded="false">
 					<span class="sr-only"></span>
@@ -47,7 +46,7 @@
 
 <!--Register and Log in Tabs-->
 <div class="tab-content">
-	<div id="index_home" class="tab-pane active">
+	<div id="index_home" {% if pageType == "index" %} class="tab-pane fade active" {% else %} class="tab-pane fade" {% endif %}>
 		<!-- Opening Carousel -->
 		<div id="indexCarousel" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -114,7 +113,7 @@
 	
 	</div>
 
-	<div id="create_account" class="tab-pane fade">
+	<div id="create_account" {% if pageType == "signup" %} class="tab-pane fade active" {% else %} class="tab-pane fade" {% endif %}>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
@@ -124,7 +123,7 @@
 						</div>
 						
 						<div class="panel-body">
-							<form action={{url_for('sign_up')}} method="POST">
+							<form action={{url_for('sign_up')}} method="POST" name="signup">
 								<br>
 								<div class="form-group">
 									<label for="inputsm" class="control-label">Email Address:</label>
@@ -142,9 +141,7 @@
 									<label for="inputPassword2">Confirm Password:</label>
 									<input name="pass2" type="password" class="form-control">
 								</div>
-								<div class="checkbox">
-									<label><input name="TnC" type="checkbox" value="True">I agree to the <a href="{{ url_for('static', filename='docs/TermsandConditions.pdf') }}">Terms and Conditions</a></label>
-								</div>
+
 								<input type="submit" name="submit" value="Sign Up" class="btn btn-info btn-lg" role="button">
 								{% if message %}
 								<br>
@@ -159,8 +156,7 @@
 			</div>
 		</div>
 	</div>
-	
-	<div id="login" class="tab-pane fade">
+	<div id="login" {% if pageType == "login" %} class="tab-pane fade active"  {% else %} class="tab-pane fade" {% endif %}>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
@@ -171,24 +167,26 @@
 						</div>
 						
 						<div class="panel-body">
-							<form>
+							<form action={{url_for('log_in')}} method="POST">
 								<br>
 								<div class="form-group">
 									<label for="inputsm" class="control-label">Email/Username:</label>
-									<input id="inpEmail" class="form-control" placeholder=" example@mail.com">
+									<input name="logemail" class="form-control" placeholder=" example@mail.com">
 								</div>
 								<div class="form-group">
 									<label for="inputPassword">Password:</label>
-									<input id="inpEmail" type="password" class="form-control">
+									<input name="logpassword" type="password" class="form-control">
 								</div>
 								<a href="#">Forgot Password?</a>
 								<br>
 								<br>
-								<div class="checkbox">
-									<label><input type="checkbox" value"">Remember Me</label>
-								</div>
 								<br>
-								<a href="{{ url_for('home') }}" class="btn btn-info" role="button">Log In</a>
+								<input type="submit" name="submit" value="Log In" class="btn btn-info btn-lg" role="button">
+								{% if message2 %}
+								<br>
+								<br>
+								<p class="text-center" style="color:red;" >{{ message2 }}</p>
+								{% endif %}
 							</form>
 						</div>
 					</div>

@@ -46,7 +46,11 @@
 
 <!--Register and Log in Tabs-->
 <div class="tab-content">
-	<div id="index_home" {% if pageType == "index" %} class="tab-pane fade active" {% else %} class="tab-pane fade" {% endif %}>
+	{% if pageType == "index" %}
+	<div role="tabpanel" id="index_home" class="tab-pane active">
+	{% else %}
+	<div role="tabpanel" id="index_home" class="tab-pane fade">
+	{% endif %}
 		<!-- Opening Carousel -->
 		<div id="indexCarousel" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -113,7 +117,11 @@
 	
 	</div>
 
-	<div id="create_account" {% if pageType == "signup" %} class="tab-pane fade active" {% else %} class="tab-pane fade" {% endif %}>
+	{% if pageType == "signup" %}
+	<div role="tabpanel" id="create_account" class="tab-pane active">
+	{% else %}
+	<div role="tabpanel" id="create_account" class="tab-pane fade">
+	{% endif %}
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
@@ -156,7 +164,12 @@
 			</div>
 		</div>
 	</div>
-	<div id="login" {% if pageType == "login" %} class="tab-pane fade active"  {% else %} class="tab-pane fade" {% endif %}>
+
+	{% if pageType == "login" %}
+	<div role="tabpanel" id="login" class="tab-pane active">
+	{% else %}
+	<div role="tabpanel" id="login" class="tab-pane fade">
+	{% endif %}
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">

@@ -4,6 +4,7 @@
 import unittest
 
 from app.bucketlists import BucketLists
+from app.newbucketlist import NewBucketList
 
 class BucketListTestCase(unittest.TestCase):
     """Several test cases for positive
@@ -18,14 +19,14 @@ class BucketListTestCase(unittest.TestCase):
         """
         new_list = self.new_user.create_bucket_list('List_01', 2018, "January",
                                                     "I feel like a million bucks", True)
-        self.assertIsInstance(new_list, BucketLists, msg="Bucket List creation unsuccessful")
+        self.assertIsInstance(new_list, NewBucketList, msg="Bucket List creation unsuccessful")
 
     def test_view_bucket_list(self):
         """Test that a valid object with saved data is returned
         """
         self.new_user.create_bucket_list('Awesome Adventure', 2030, "January",
                                          "It will be most excellent", False)
-        self.assertIsInstance(self.new_user.view_list('Awesome Adventure'), BucketLists,
+        self.assertIsInstance(self.new_user.view_list('Awesome Adventure'), NewBucketList,
                               msg="View did not return bucket list")
 
     def test_bucket_list_delete(self):

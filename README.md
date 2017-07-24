@@ -1,5 +1,6 @@
 
 # Bucket-List-Ultima
+[![Build Status](https://travis-ci.org/AnthonyWaithaka/Bucket-List-Ultima.svg?branch=master)](https://travis-ci.org/AnthonyWaithaka/Bucket-List-Ultima)
 An application to plan, record and share achievements/experiences.
 
 ### Current UI 17/7/2017:

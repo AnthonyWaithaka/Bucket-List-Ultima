@@ -89,7 +89,7 @@ class Application(object):
 
         self.USERNAME_LIST.append(user_name)
 
-        self.USER_LIST.update({user_name:(new_user_email, user_password)})
+        self.USER_LIST.update({user_name:[new_user_email, user_password]})
 
         #create a user's bucketlist group initialized with user_id, email_address and pwd
         new_user = BucketLists(user_name, new_user_email, user_password)
@@ -176,9 +176,9 @@ class Application(object):
         if newemail is not None and oldemail is not None:
             if self.check_email_repeat(oldemail) is True:
                 if self.check_email_repeat(newemail) is not True:
-                    holder = self.USERNAME_LIST.index(oldemail)
+                    holder = self.EMAIL_LIST.index(oldemail)
                     self.EMAIL_LIST[holder] = newemail
-                    self.ACCESS_LIST[username][0] = newemail
+                    self.USER_LIST[username][0] = newemail
                     self.ACCESS_LIST[username].user_email = newemail
                     checker_email = self.check_email_repeat(oldemail)
 

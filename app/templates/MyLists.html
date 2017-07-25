@@ -106,13 +106,13 @@
                                     <!-- Replace with data from views.py -->
                                     <h1 style="padding-left:20px;">{{ m }}</h1>
                                     <h2 style="padding-left:20px;">{{ userdata[m].list_quote }}</h2>
-                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditBucketList">Edit Bucket List</button>
+                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditBList{{m.replace(" ","")}}">Edit Bucket List</button>
                                     <form class="form-horizontal" action={{url_for('delete_list')}} method = "POST">
                                         <input type="hidden" name="listtodelete" value="{{m}}">
                                         <input type="submit" name="submit" value="Delete Bucket List" class="btn btn-danger btn-sm" role="button">
                                     </form>
                                 </div>
-                                <div id="EditBucketList" class="modal fade" role="dialog">
+                                <div id="EditBList{{m.replace(" ","")}}" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -197,7 +197,7 @@
                                         {% for activityitem in useralistdict[m] %}
                                         <div id="{{activityitem.replace(" ","")}}" class="tab-pane">
                                             <br>
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditActivity">Edit Activity Name</button>
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditActivity{{activityitem.replace(" ","")}}">Edit Activity Name</button>
                                             <form action={{url_for('delete_activity')}} method="POST">
                                                 <input name="blisttodelete" type="hidden" value="{{ m }}">
                                                 <input name="atodelete" type="hidden" value="{{activityitem}}">
@@ -205,7 +205,7 @@
                                             </form>
                                         </div>
                                         <!--Edit Activity Form-->
-                                        <div id="EditActivity" class="modal fade" role="dialog">
+                                        <div id="EditActivity{{activityitem.replace(" ","")}}" class="modal fade" role="dialog">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">

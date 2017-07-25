@@ -19,7 +19,7 @@ class BucketLists(object):
         self.user_password = user_password
         self.bucket_lists = {}
 
-    def create_bucket_list(self, list_name, list_year, list_month, list_quote, set_active):
+    def create_bucket_list(self, list_name, list_year, list_month, list_quote):
         """Create bucket list with arguments from constructor and
         store data in structures within the scope of class instance
         """
@@ -27,11 +27,7 @@ class BucketLists(object):
             if list_name == key:
                 return None
 
-        #verifying that the month is not a number:
-        if not list_month.isalpha():
-            return None
-
-        new_bucket_list = NewBucketList(list_name, list_year, list_month, list_quote, set_active)
+        new_bucket_list = NewBucketList(list_name, list_year, list_month, list_quote)
         self.bucket_lists.update({list_name:new_bucket_list})
         return new_bucket_list
 

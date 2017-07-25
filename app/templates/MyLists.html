@@ -1,66 +1,8 @@
-<!DOCTYPE html>
-<html lan="en">
-	
-	<head>
-
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--Make IE use the latest renderer-->
-		<meta name="viewport" content="width=device-width, initial-scale=1"> <!--Set default viewport-width to device-width-->
-		
-		<title>Bucket List Ultima-MyLists</title>
-		
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/bodystyle.min.css') }}">
-	
-	</head>
-
-<body>
-
-<!-- Navigation Bar -->
+{% extends "base.html" %}
+{% block title %}BucketLists{% endblock %}
+{% block body %}
 <div class="container">
-
-	<nav class="navbar navbar-default">
-		<div class="container">
-			
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#HomeNavbar" aria-expanded="false">
-					<span class="sr-only"></span>
-					<!--The three bars in the button for collapsing the navbar in small screens-->
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span> 
-				</button>
-				<a class="pull-left" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/newlogo_lg.png') }}" alt="Logo" class="logo-large" style="width:60px; height:50px;"></a>
-			</div>
-
-			<div class="collapse navbar-collapse" id="HomeNavbar">
-                <form class="navbar-form pull-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default"><a href="search_results.html"><span class="glyphicon glyphicon-search"></span></a></button>
-                </form>
-                <ul class="nav navbar-nav pull-right">
-					<li><a href="{{ url_for('bucketlists') }}">My Lists</a></li>
-                    <li><a href="{{ url_for('following') }}">Following</a></li>
-                    
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="ProfileImg" class="logo-large" style="width:40px; height:30px;"><span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="home.html">Profile</a></li>
-                            <li><a href="home.html">Settings</a></li>
-                            <li><a href="index.html">Log Out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-			</div>
-		</div>
-	</nav>
-
-</div>
-
-
-<div class="container">
+    
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3">
             <!--Bucket List Panel-->
@@ -73,47 +15,65 @@
                 <div class="panel-body">
                     <div class="tab">
                         <ul class="nav nav-default">
-                            <li><a data-toggle="tab" href="#bL1">Example name 1</a></li>
-                            <li><a data-toggle="tab" href="#bL2">Example name 2</a></li>
-                            <li><a data-toggle="tab" href="#bL3">Example name 3</a></li>
-                            <li><a data-toggle="tab" href="#bL4">Example name 4</a></li>
-                            <li><a data-toggle="tab" href="#bL5">Example name 5</a></li>
+                            <!-- for loop to display tab items (bucketlists) -->
+                            {% if sessionblist != 0 %}
+                            {% for i in userblist %}
+                            <li><a data-toggle="tab" href="#{{ i }}">{{ i }}</a></li>
+                            {% endfor %}
+                            {% else %}
+                            <li><a data-toggle="tab" href"#nolist"></a></li>
+                            {% endif %}
+                            <!-- endfor -->
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
+                    <form action={{url_for('new_list')}} method = "POST">
                     <div class="panel panel-default text-center">
                         <div class="panel-body">
-                            <input id="inpListName" class="form-control" placeholder=" New Bucket List">
+                            <input id="inpListName" name="newlistname" type="text" class="form-control" placeholder=" New Bucket List">
                             <!--Date selection List-->
                             <div class="form-group horizontal">
                                 <br>
                                 <label for="blist1"><p>Done By:</p></label>
-                                <select class="form-control" id="blist1">
-                                    <option>Year</option>
-                                    <option>1960</option>
-                                    <option>...</option>
-                                    <option>2012</option>
+                                <select class="form-control" name="list_year" id="blist1">
+                                    <option value="0">Year</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
                                 </select>
-                                <select class="form-control" id="blist2">
-                                    <option>Month</option>
-                                    <option>January</option>
-                                    <option>...</option>
-                                    <option>December</option>
+                                <select class="form-control" name="list_month" id="blist2">
+                                    <option value="0">Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
                                 </select>
                             </div>
                             <!--Comment field-->
                             <div class="form-group">
                                 <label for="quote">Quote:</label>
-                                <textarea class="form-control" rows="3" id="comment"></textarea>
+                                <textarea class="form-control" name="list_quote" type="text" rows="3" id="comment"></textarea>
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <a href="#" class="btn btn-info btn-md" role="button">New List</a>
+                            <input type="submit" name="submit" value="Submit New List" class="btn btn-info btn-lg" role="button">
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -122,22 +82,90 @@
         <!--Bucket List Description-->
         <div class="col-lg-9 col-md-9 col-sm-9">
             <div class="tab-content">
-                <div id="bL1" class="tab-pane active">
+                {% if sessionblist != 0 %}
+                <div id="default" class="tab-pane active">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <br>
+                            <h2 class="text-center" style="font-size:50px;">{{user}}'s Bucket List</h2>
+                        </div>
+                        <div class="panel-body">
+                            <h3 class="text-center"><span class="glyphicon glyphicon-hand-left" style="font-size:50px;"></span><br><br>Check out your bucket lists by clicking on one of the names to the left</h3>
+                            <br>
+                            <br>
+                            <h3 class="text-center" style="font-size:50px">Start your day with a new bucket list!</h3>
+                        </div>
+                    </div>
+                </div>
+                {% for m in userblist %}
+                <div id="{{ m }}" class="tab-pane">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3">
-                                    <h1 style="padding-left:20px;">Example name 1</h1>
-                                    <h2 style="padding-left:20px;">"The Quote"</h2>
-                                    <div class="checkbox" style="padding-left:20px;">
-								        <label><input type="checkbox" value"">Set Active <a href="#" style="padding-left:20px;">Edit</a> <a href="#" style="padding-left:20px;">Delete</a></label>
+                                    <!-- Replace with data from views.py -->
+                                    <h1 style="padding-left:20px;">{{ m }}</h1>
+                                    <h2 style="padding-left:20px;">{{ userdata[m].list_quote }}</h2>
+                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditBucketList">Edit Bucket List</button>
+                                    <form class="horizontal" action={{url_for('delete_list')}} method = "POST">
+                                        <input type="hidden" name="listtodelete" value={{userdata[m]}}>
+                                        <input type="submit" name="submit" value="Delete Bucket List" class="btn btn-danger btn-sm" role="button">
+                                    </form>
+                                </div>
+                                <div id="EditBucketList" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type"button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit {{userblist[m]}} </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action={{url_for('edit_list')}} method = "POST">
+                                                    <label for="inputsm" class="control-label">Enter new name:</label>
+                                                    <input name="newbname" defaultValue="None" type="text" class="form-control" placeholder=" New Bucket List Name">
+                                                    <label for="inputsm" class="control-label">Enter new quote:</label>
+                                                    <input name="newbquote" defaultValue="None" type="text" class="form-control" placeholder=" New Bucket List Quote">
+                                                    <input type="hidden" name="listtoedit" value={{userdata[m]}}>
+                                                    <input type="hidden" name="usertoedit" value={{username}}>
+                                                    <div class="form-group horizontal">
+                                                        <br>
+                                                        <label for="blist1"><p>Done By:</p></label>
+                                                        <select class="form-control" name="newlist_year" id="blist3">
+                                                            <option value="0">Year</option>
+                                                            <option value="2017">2017</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2020">2020</option>
+                                                            <option value="2021">2021</option>
+                                                            <option value="2022">2022</option>
+                                                        </select>
+                                                        <select class="form-control" name="newlist_month" id="blist4">
+                                                            <option value="0">Month</option>
+                                                            <option value="1">January</option>
+                                                            <option value="2">February</option>
+                                                            <option value="3">March</option>
+                                                            <option value="4">April</option>
+                                                            <option value="5">May</option>
+                                                            <option value="6">June</option>
+                                                            <option value="7">July</option>
+                                                            <option value="8">August</option>
+                                                            <option value="9">September</option>
+                                                            <option value="10">October</option>
+                                                            <option value="11">November</option>
+                                                            <option value="12">December</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="submit" name="submit" value="Submit" class="btn btn-danger btn-sm" role="button">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-8 col-md-3 col-sm-3 text-right">
                                     <h3>Days Remaining:</h3>
-                                    <h3>216</h3>
-                                    <h3>Last Updated:</h3>
-                                    <h3>dd/mm/yy</h3>
+                                    <h3>{{ userdeadline[m] }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -148,336 +176,120 @@
                                     <!--Activities List-->
                                     <div class="tab">
                                         <ul class="nav nav-default">
-                                            <li><a data-toggle="tab" href="#bL1aL1">Example activity 1</a></li>
-                                            <li><a data-toggle="tab" href="#bL1aL2">Example activity 2</a></li>
-                                            <li><a data-toggle="tab" href="#bL1aL3">Example activity 3</a></li>
+                                            <!-- for loop to display tab items (activites) -->
+                                            {% for n in useralistdict[m] %}
+                                            <li><a data-toggle="tab" href="#{{ n }}">{{ n }}</a></li>
+                                            {% endfor %}
+                                            <!-- endfor loop -->
                                         </ul>
                                     </div>
-                                    <br>
                                     <!-- New Activities Forms-->
                                     <input id="inpListName" class="form-control" placeholder="New Activity">
                                     <br>
+                                    <form action={{url_for('add_activity')}} method = "POST">
                                     <a href="#" class="btn btn-info btn-md" role="button">Submit New Activity</a>
-                                    
+                                    </form>
                                 </div>
                                 <div class="col-lg-8 col-md-3 col-sm-3">
                                     <!--Activities Content-->
                                     <div class="tab-content">
-                                        <div id="bL1aL1" class="tab-pane">
-                                            <!-- Image Browser -->
-                                            <div id="bL1aL1Carousel" class="carousel slide" data-ride="carousel">
-                                                <ol class="carousel-indicators">
-                                                    <li data-target="#bL1aL1Carousel" data-slide-to="0" class="active"></li>
-                                                    <li data-target="#bL1aL1Carousel" data-slide-to="1"></li>
-                                                    <li data-target="#bL1aL1Carousel" data-slide-to="2"></li>
-                                                </ol>
-
-                                                <div class="carousel-inner">
-                                                    <div class="item active">
-                                                        <div class="slide1"></div>
-                                                        <img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                    <div class="slide2"></div>
-                                                        <img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                        <div class="slide3"></div>
-                                                        <img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
-                                                    </div>
-                                                </div>
-
-                                                <a class="left carousel-control" href="#bL1aL1Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                                                <a class="right carousel-control" href="#bL1aL1Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                                            </div>
+                                        {% for m in useralistdict[i]  %}
+                                        <div id="m" class="tab-pane">
+                                            <!--Activity Description-->
+                                            <!--Edit Activity Forms-->
                                             <br>
-                                            <!--New Media Input Forms go here-->
                                             <div class="input-group">						
-						                        <input type="text" class="form-control" placeholder="Add Media">
-						                        <div class="input-group-btn">
-							                        <button type="button" class="btn">Browse</button>
-						                        </div>
+                                                <input type="text" class="form-control" placeholder="Add Media">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn">Browse</button>
+                                                </div>
                                             </div>
                                             <br>
                                             <div class="text-center"><a href="#" class="btn btn-info btn-md" role="button">Submit</a></div>
                                             <div class="pull-right"><a href="#" style="padding-left:20px;">Edit</a><a href="#" style="padding-left:20px;">Delete</a></div>
                                         </div>
-
-                                        <div id="bL1aL2" class="tab-pane">
-                                            <!-- Image Browser -->
-                                            <div id="bL1aL2Carousel" class="carousel slide" data-ride="carousel">
-                                                <ol class="carousel-indicators">
-                                                    <li data-target="#bL1aL2Carousel" data-slide-to="0" class="active"></li>
-                                                    <li data-target="#bL1aL2Carousel" data-slide-to="1"></li>
-                                                    <li data-target="#bL1aL2Carousel" data-slide-to="2"></li>
-                                                </ol>
-
-                                                <div class="carousel-inner">
-                                                    <div class="item active">
-                                                        <div class="slide1"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplehf.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                    <div class="slide2"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplehf.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                        <div class="slide3"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplehf.png') }}" alt="sample">
-                                                    </div>
-                                                </div>
-
-                                                <a class="left carousel-control" href="#bL1aL2Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                                                <a class="right carousel-control" href="#bL1aL2Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                                            </div>
-                                            <br>
-                                            <!--New Media Input Forms go here-->
-                                            <div class="input-group">						
-						                        <input type="text" class="form-control" placeholder="Add Media">
-						                        <div class="input-group-btn">
-							                        <button type="button" class="btn">Browse</button>
-						                        </div>
-                                            </div>
-                                            <br>
-                                            <div class="text-center"><a href="#" class="btn btn-info btn-md" role="button">Submit</a></div>
-                                            <div class="pull-right"><a href="#" style="padding-left:20px;">Edit</a><a href="#" style="padding-left:20px;">Delete</a></div>
-                                        </div>
-
-                                        <div id="bL1aL3" class="tab-pane">
-                                            <!-- Image Browser -->
-                                            <div id="bL1aL3Carousel" class="carousel slide" data-ride="carousel">
-                                                <ol class="carousel-indicators">
-                                                    <li data-target="#bL1aL3Carousel" data-slide-to="0" class="active"></li>
-                                                    <li data-target="#bL1aL3Carousel" data-slide-to="1"></li>
-                                                    <li data-target="#bL1aL3Carousel" data-slide-to="2"></li>
-                                                </ol>
-
-                                                <div class="carousel-inner">
-                                                    <div class="item active">
-                                                        <div class="slide1"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplevf.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                    <div class="slide2"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplevf.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                        <div class="slide3"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplevf.png') }}" alt="sample">
-                                                    </div>
-                                                </div>
-
-                                                <a class="left carousel-control" href="#bL1aL3Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                                                <a class="right carousel-control" href="#bL1aL3Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                                            </div>
-                                            <br>
-                                            <!--New Media Input Forms go here-->
-                                            <div class="input-group">						
-						                        <input type="text" class="form-control" placeholder="Add Media">
-						                        <div class="input-group-btn">
-							                        <button type="button" class="btn">Browse</button>
-						                        </div>
-                                            </div>
-                                            <br>
-                                            <div class="text-center"><a href="#" class="btn btn-info btn-md" role="button">Submit</a></div>
-                                            <div class="pull-right"><a href="#" style="padding-left:20px;">Edit</a><a href="#" style="padding-left:20px;">Delete</a></div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-footer">
-                            <h3>Comments...</h3>
-                            <!--Blog-style comment forms and output go here-->
-                        </div>
                     </div>
                 </div>
+                {% endfor %}
+                {% else %}
 
-                <div id="bL2" class="tab-pane">
+                <div id="nolist" class="tab-pane active">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3">
-                                    <h1 style="padding-left:20px;">Example name 2</h1>
-                                    <h2 style="padding-left:20px;">"The Other Quote"</h2>
-                                    <div class="checkbox" style="padding-left:20px;">
-								        <label><input type="checkbox" value"">Set Active <a href="#" style="padding-left:20px;">Delete</a></label>
-                                    </div>
+                                    <!-- Replace with data from views.py -->
+                                    <h1 style="padding-left:20px;" class="text-center">You don't have any Bucket Lists yet</h1>
                                 </div>
                                 <div class="col-lg-8 col-md-3 col-sm-3 text-right">
-                                    <h3>Days Remaining:</h3>
-                                    <h3>32</h3>
-                                    <h3>Last Updated:</h3>
-                                    <h3>dd/mm/yy</h3>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 col-sm-3">
-                                    <!--Activities List-->
-                                    <div class="tab">
-                                        <ul class="nav nav-default">
-                                            <li><a data-toggle="tab" href="#bL2aL1">Example activity 1</a></li>
-                                            <li><a data-toggle="tab" href="#bL2aL2">Example activity 2</a></li>
-                                            <li><a data-toggle="tab" href="#bL2aL3">Example activity 3</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- New Activities Forms-->
-                                    <input id="inpListName" class="form-control" placeholder="New Activity">
-                                    <br>
-                                    <a href="#" class="btn btn-info btn-md" role="button">Submit New Activity</a>
-                                </div>
-                                <div class="col-lg-8 col-md-3 col-sm-3">
-                                    <!--Activities Content-->
-                                    <div class="tab-content">
-                                        <div id="bL2aL1" class="tab-pane">
-                                            <!-- Image Browser -->
-                                            <div id="bL2aL1Carousel" class="carousel slide" data-ride="carousel">
-                                                <ol class="carousel-indicators">
-                                                    <li data-target="#bL2aL1Carousel" data-slide-to="0" class="active"></li>
-                                                    <li data-target="#bL2aL1Carousel" data-slide-to="1"></li>
-                                                    <li data-target="#bL2aL1Carousel" data-slide-to="2"></li>
-                                                </ol>
-
-                                                <div class="carousel-inner">
-                                                    <div class="item active">
-                                                        <div class="slide1"></div>
-                                                        <img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                    <div class="slide2"></div>
-                                                        <img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                        <div class="slide3"></div>
-                                                        <img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
-                                                    </div>
-                                                </div>
-
-                                                <a class="left carousel-control" href="#bL2aL1Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                                                <a class="right carousel-control" href="#bL2aL1Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                                            </div>
+                            <h1 class="text-center">Create your first bucket list here:</h1>
+                            <form action={{url_for('new_list')}} method = "POST">
+                                <div class="panel panel-default text-center">
+                                    <div class="panel-body">
+                                        <input id="inpListName" name="newlistname" type="text" class="form-control" placeholder=" New Bucket List">
+                                        <!--Date selection List-->
+                                        <div class="form-group horizontal">
                                             <br>
-                                            <!--New Media Input Forms go here-->
-                                            <div class="input-group">						
-						                        <input type="text" class="form-control" placeholder="Add Media">
-						                        <div class="input-group-btn">
-							                        <button type="button" class="btn">Browse</button>
-						                        </div>
-                                            </div>
-                                            <br>
-                                            <div class="text-center"><a href="#" class="btn btn-info btn-md" role="button">Submit</a></div>
-                                            <div class="pull-right"><a href="#" style="padding-left:20px;">Edit</a><a href="#" style="padding-left:20px;">Delete</a></div>
+                                            <label for="blist1"><p>Done By:</p></label>
+                                            <select class="form-control" name="list_year" id="blist1">
+                                                <option value="0">Year</option>
+                                                <option value="2017">2017</option>
+                                                <option value="2018">2018</option>
+                                                <option value="2019">2019</option>
+                                                <option value="2020">2020</option>
+                                                <option value="2021">2021</option>
+                                                <option value="2022">2022</option>
+                                            </select>
+                                            <select class="form-control" name="list_month" id="blist2">
+                                                <option value="0">Month</option>
+                                                <option value="1">January</option>
+                                                <option value="2">February</option>
+                                                <option value="3">March</option>
+                                                <option value="4">April</option>
+                                                <option value="5">May</option>
+                                                <option value="6">June</option>
+                                                <option value="7">July</option>
+                                                <option value="8">August</option>
+                                                <option value="9">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
                                         </div>
-
-                                        <div id="bL2aL2" class="tab-pane">
-                                            <!-- Image Browser -->
-                                            <div id="bL2aL2Carousel" class="carousel slide" data-ride="carousel">
-                                                <ol class="carousel-indicators">
-                                                    <li data-target="#bL2aL2Carousel" data-slide-to="0" class="active"></li>
-                                                    <li data-target="#bL2aL2Carousel" data-slide-to="1"></li>
-                                                    <li data-target="#bL2aL2Carousel" data-slide-to="2"></li>
-                                                </ol>
-
-                                                <div class="carousel-inner">
-                                                    <div class="item active">
-                                                        <div class="slide1"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplehf.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                    <div class="slide2"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplehf.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                        <div class="slide3"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplehf.png') }}" alt="sample">
-                                                    </div>
-                                                </div>
-
-                                                <a class="left carousel-control" href="#bL2aL2Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                                                <a class="right carousel-control" href="#bL2aL2Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                                            </div>
-                                            <br>
-                                            <!--New Media Input Forms go here-->
-                                            <div class="input-group">						
-						                        <input type="text" class="form-control" placeholder="Add Media">
-						                        <div class="input-group-btn">
-							                        <button type="button" class="btn">Browse</button>
-						                        </div>
-                                            </div>
-                                            <br>
-                                            <div class="text-center"><a href="#" class="btn btn-info btn-md" role="button">Submit</a></div>
-                                            <div class="pull-right"><a href="#" style="padding-left:20px;">Edit</a><a href="#" style="padding-left:20px;">Delete</a></div>
-                                        </div>
-
-                                        <div id="bL2aL3" class="tab-pane">
-                                            <!-- Image Browser -->
-                                            <div id="bL2aL3Carousel" class="carousel slide" data-ride="carousel">
-                                                <ol class="carousel-indicators">
-                                                    <li data-target="#bL2aL3Carousel" data-slide-to="0" class="active"></li>
-                                                    <li data-target="#bL2aL3Carousel" data-slide-to="1"></li>
-                                                    <li data-target="#bL2aL3Carousel" data-slide-to="2"></li>
-                                                </ol>
-
-                                                <div class="carousel-inner">
-                                                    <div class="item active">
-                                                        <div class="slide1"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplevf.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                    <div class="slide2"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplevf.png') }}" alt="sample">
-                                                    </div>
-
-                                                    <div class="item">
-                                                        <div class="slide3"></div>
-                                                        <img src="{{ url_for('static', filename='images/samplevf.png') }}" alt="sample">
-                                                    </div>
-                                                </div>
-
-                                                <a class="left carousel-control" href="#bL2aL3Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                                                <a class="right carousel-control" href="#bL2aL3Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                                            </div>
-                                            <br>
-                                            <!--New Media Input Forms go here-->
-                                            <div class="input-group">						
-						                        <input type="text" class="form-control" placeholder="Add Media">
-						                        <div class="input-group-btn">
-							                        <button type="button" class="btn">Browse</button>
-						                        </div>
-                                            </div>
-                                            <br>
-                                            <div class="text-center"><a href="#" class="btn btn-info btn-md" role="button">Submit</a></div>
-                                            <div class="pull-right"><a href="#" style="padding-left:20px;">Edit</a><a href="#" style="padding-left:20px;">Delete</a></div>
+                                        <!--Comment field-->
+                                        <div class="form-group">
+                                            <label for="quote">Quote:</label>
+                                            <textarea class="form-control" name="list_quote" type="text" rows="3" id="comment"></textarea>
                                         </div>
                                     </div>
+                                    <div class="panel-footer">
+                                        <input type="submit" name="submit" value="Submit New List" class="btn btn-info btn-lg" role="button">
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer">
-                            <h3>Comments...</h3>
-                            <!--Blog-style comment forms and output go here-->
+                                </form>
                         </div>
                     </div>
                 </div>
+
+
+                {% endif %}
             </div>
         </div>
     </div>
+
 </div>
 
+{% endblock %}
 
 <!-- Page Footer -->
 <footer class="foot-bar text-center">

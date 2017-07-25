@@ -7,12 +7,11 @@ class NewBucketList(object):
     """NewBucketList class -
     Has methods for activities management
     """
-    def __init__(self, list_name, list_year, list_month, list_quote, set_active):
+    def __init__(self, list_name, list_year, list_month, list_quote):
         self.list_name = list_name
         self.list_year = list_year
         self.list_month = list_month
         self.list_quote = list_quote
-        self.set_active = set_active
         self.activity_list = {}    #activity_list will have {name:object} format
 
     def create_activity(self, activity_name, media_path_list, achieved_status):

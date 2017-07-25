@@ -92,24 +92,21 @@ def bucketlists():
     sessionblist = []
     deadline = []
     useralist = []
-    sessionalist = []
     useralistdict = {}
-    sessionalistdict = {}
     userblist = list(NEWAPP.ACCESS_LIST[username].bucket_lists.keys())
     if userblist is not None:
         for key in userblist:
             sessionblist.append(NEWAPP.ACCESS_LIST[username].bucket_lists[key])
-            useralist = (list(NEWAPP.ACCESS_LIST[username].bucket_lists[key].activity_list.keys()))
-            sessionalist = (list(NEWAPP.ACCESS_LIST[username].bucket_lists[key].activity_list.values()))
-            useralistdict.update(map(key, useralist))
-            sessionalistdict.update(map(key, sessionalist))
-            d0 = date(NEWAPP.ACCESS_LIST[username].bucket_lists[key].list_year, NEWAPP.ACCESS_LIST[username].bucket_lists[key].list_month, 1)
-            d1 = date(now.year, now.month, 1)
-            delta = d1 - d0
-            if delta.days > 0:
-                deadline.append(abs(delta.days))
-            else:
+            useralist = (list(NEWAPP.ACCESS_LIST[username].bucket_lists[key].activity_list))
+            useralistdict.update({key:useralist})
+            date_one = date(NEWAPP.ACCESS_LIST[username].bucket_lists[key].list_year,
+                            NEWAPP.ACCESS_LIST[username].bucket_lists[key].list_month, 1)
+            date_two = date(now.year, now.month, 1)
+            delta = date_one - date_two
+            if delta.days < 0:
                 deadline.append("deadline passed")
+            else:
+                deadline.append(delta.days)
     else:
         sessionblist = 0
     #Return session user's data in pieces for: list of (list of) bucketlist names,
@@ -119,7 +116,7 @@ def bucketlists():
     return render_template("MyLists.html", title=username, user=username,
                            userblist=userblist, sessionblist=sessionblist,
                            userdata=userdata, userdeadline=userdeadline,
-                           useralistdict=useralistdict, sessionalistdict=sessionalistdict)
+                           useralistdict = useralistdict)
 
 @APP.route('/newlist', methods=['GET', 'POST'])
 def new_list():
@@ -133,7 +130,9 @@ def new_list():
     listquote = request.form['list_quote']
     if username is not None:
         if listyear != 0 and listmonth != 0:
-            NEWAPP.ACCESS_LIST[username].create_bucket_list(newlistname, listyear, listmonth, listquote)
+            NEWAPP.ACCESS_LIST[username].create_bucket_list(newlistname,
+                                                            listyear,
+                                                            listmonth, listquote)
             return redirect(url_for('bucketlists'))
         else:
             return redirect(url_for('bucketlists'))
@@ -149,31 +148,47 @@ def delete_list():
 
 @APP.route('/editlist/', methods=['GET', 'POST'])
 def edit_list():
-    listnametoedit = request.form['listtoedit']
+    listnametoedit = request.form.get('listtoedit')
     username = session['loginuser']
     newlistname = request.form['newbname']
     newlistquote = request.form['newbquote']
-    listyear = int(request.form['list_year'])
-    listmonth = int(request.form['list_month'])
-    if newlistname != "None":
-        NEWAPP.ACCESS_LIST[username].update_list(listnametoedit, newlistname=newlistname)
-    if newlistquote != "None":
-        NEWAPP.ACCESS_LIST[username].update_list(listnametoedit, quote=newlistname)
+    listyear = int(request.form['editlist_year'])
+    listmonth = int(request.form['editlist_month'])
+    if newlistname:
+        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, newlistname=newlistname)
+    if newlistquote:
+        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, quote=newlistquote)
     if listyear != 0:
-        NEWAPP.ACCESS_LIST[username].update_list(listnametoedit, year=newlistname)
+        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, year=listyear)
     if listmonth != 0:
-        NEWAPP.ACCESS_LIST[username].update_list(listnametoedit, month=newlistname)
+        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, month=listmonth)
     return redirect(url_for('bucketlists'))
 
 @APP.route('/addactivity/', methods=['GET', 'POST'])
 def add_activity():
+    listtoedit = request.form.get('listtoupdate')
+    usertoedit = session['loginuser']
+    newactivity = request.form['newactivity']
+    NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].create_activity(newactivity)
     return redirect(url_for('bucketlists'))
 
-#def editactivities():
-#receive requests to change activity details from forms
-#request session user
-#process changes
-#return to bucketlists function
+@APP.route('/editactivity/', methods=['GET', 'POST'])
+def edit_activity():
+    listtoedit = request.form.get('blisttoedit')
+    usertoedit = session['loginuser']
+    newname = request.form['newaname']
+    aname = request.form.get('currentactivity')
+    NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].update_activity(aname, newname)
+    return redirect(url_for('bucketlists'))
+
+@APP.route('/deleteactivity/', methods=['GET', 'POST'])
+def delete_activity():
+    listtoedit = request.form.get('blisttodelete')
+    usertoedit = session['loginuser']
+    delname = request.form.get('atodelete')
+    NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].delete_activity(delname)
+    return redirect(url_for('bucketlists'))
+
 @APP.route('/settings')
 def settings():
     username = session['loginuser']

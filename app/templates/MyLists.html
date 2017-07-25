@@ -18,7 +18,7 @@
                             <!-- for loop to display tab items (bucketlists) -->
                             {% if sessionblist != 0 %}
                             {% for i in userblist %}
-                            <li><a data-toggle="tab" href="#{{i}}">{{ i }}</a></li>
+                            <li><a data-toggle="tab" href="#{{i.replace(" ", "")}}">{{ i }}</a></li>
                             {% endfor %}
                             {% else %}
                             <li><a data-toggle="tab" href"#nolist"></a></li>
@@ -33,7 +33,7 @@
                     <form action={{url_for('new_list')}} method = "POST">
                     <div class="panel panel-default text-center">
                         <div class="panel-body">
-                            <input id="inpListName" name="newlistname" type="text" class="form-control" placeholder=" New Bucket List">
+                            <input id="inpListName" name="newlistname" class="form-control" placeholder=" New Bucket List">
                             <!--Date selection List-->
                             <div class="form-group horizontal">
                                 <br>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 {% for m in userblist %}
-                <div id="{{ m }}" class="tab-pane">
+                <div id="{{ m.replace(" ", "") }}" class="tab-pane">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
@@ -107,8 +107,8 @@
                                     <h1 style="padding-left:20px;">{{ m }}</h1>
                                     <h2 style="padding-left:20px;">{{ userdata[m].list_quote }}</h2>
                                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditBucketList">Edit Bucket List</button>
-                                    <form class="horizontal" action={{url_for('delete_list')}} method = "POST">
-                                        <input type="hidden" name="listtodelete" defaultValue={{userblist[m]}}>
+                                    <form class="form-horizontal" action={{url_for('delete_list')}} method = "POST">
+                                        <input type="hidden" name="listtodelete" value="{{m}}">
                                         <input type="submit" name="submit" value="Delete Bucket List" class="btn btn-danger btn-sm" role="button">
                                     </form>
                                 </div>
@@ -117,20 +117,19 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type"button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Edit {{userblist[m]}} </h4>
+                                                <h4 class="modal-title" style="color:black;">Edit {{m}} </h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form action={{url_for('edit_list')}} method = "POST">
+                                                <form action={{url_for('edit_list')}} method="POST">
                                                     <label for="inputsm" class="control-label">Enter new name:</label>
-                                                    <input name="newbname" defaultValue="None" type="text" class="form-control" placeholder=" New Bucket List Name">
+                                                    <input name="newbname" type="text" class="form-control" placeholder=" New Bucket List Name">
                                                     <label for="inputsm" class="control-label">Enter new quote:</label>
-                                                    <input name="newbquote" defaultValue="None" type="text" class="form-control" placeholder=" New Bucket List Quote">
-                                                    <input type="hidden" name="listtoedit" value={{userdata[m]}}>
-                                                    <input type="hidden" name="usertoedit" value={{username}}>
+                                                    <input name="newbquote" type="text" class="form-control" placeholder=" New Bucket List Quote">
+                                                    <input type="hidden" name="listtoedit" value="{{m}}">
                                                     <div class="form-group horizontal">
                                                         <br>
                                                         <label for="blist1"><p>Done By:</p></label>
-                                                        <select class="form-control" name="newlist_year" id="blist3">
+                                                        <select class="form-control" name="editlist_year" id="blist3">
                                                             <option value="0">Year</option>
                                                             <option value="2017">2017</option>
                                                             <option value="2018">2018</option>
@@ -139,7 +138,7 @@
                                                             <option value="2021">2021</option>
                                                             <option value="2022">2022</option>
                                                         </select>
-                                                        <select class="form-control" name="newlist_month" id="blist4">
+                                                        <select class="form-control" name="editlist_month" id="blist4">
                                                             <option value="0">Month</option>
                                                             <option value="1">January</option>
                                                             <option value="2">February</option>
@@ -178,35 +177,55 @@
                                         <ul class="nav nav-default">
                                             <!-- for loop to display tab items (activites) -->
                                             {% for n in useralistdict[m] %}
-                                            <li><a data-toggle="tab" href="#{{ n }}">{{ n }}</a></li>
+                                            <li><a data-toggle="tab" href="#{{ n.replace(" ","") }}">{{ n }}</a></li>
                                             {% endfor %}
                                             <!-- endfor loop -->
                                         </ul>
                                     </div>
                                     <!-- New Activities Forms-->
-                                    <input id="inpListName" class="form-control" placeholder="New Activity">
                                     <br>
                                     <form action={{url_for('add_activity')}} method = "POST">
-                                    <a href="#" class="btn btn-info btn-md" role="button">Submit New Activity</a>
+                                        <input name="listtoupdate" type="hidden" value="{{ m }}">
+                                        <input name="newactivity" class="form-control" placeholder="New Activity">
+                                        <br>
+                                        <input type="submit" name="submit" value="Submit New Activity" class="btn btn-info btn-sm" role="button">
                                     </form>
                                 </div>
                                 <div class="col-lg-8 col-md-3 col-sm-3">
                                     <!--Activities Content-->
                                     <div class="tab-content">
-                                        {% for m in useralistdict[i]  %}
-                                        <div id="m" class="tab-pane">
-                                            <!--Activity Description-->
-                                            <!--Edit Activity Forms-->
+                                        {% for activityitem in useralistdict[m] %}
+                                        <div id="{{activityitem.replace(" ","")}}" class="tab-pane">
                                             <br>
-                                            <div class="input-group">						
-                                                <input type="text" class="form-control" placeholder="Add Media">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn">Browse</button>
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditActivity">Edit Activity Name</button>
+                                            <form action={{url_for('delete_activity')}} method="POST">
+                                                <input name="blisttodelete" type="hidden" value="{{ m }}">
+                                                <input name="atodelete" type="hidden" value="{{activityitem}}">
+                                                <input type="submit" name="submit" value="Delete Activity" class="btn btn-danger btn-sm" role="button">
+                                            </form>
+                                        </div>
+                                        <!--Edit Activity Form-->
+                                        <div id="EditActivity" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type"button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title" style="color:black;">Edit {{activityitem}} </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action={{url_for('edit_activity')}} method="POST">
+                                                            <label for="inputsm" class="control-label">Enter new name:</label>
+                                                            <input type="hidden" name="blisttoedit" value="{{ m }}">
+                                                            <input type="hidden" name="currentactivity" value="{{activityitem}}">
+                                                            <input name="newaname" class="form-control" placeholder="New Activity Name">
+                                                            
+                                                            <div class="modal-footer">
+                                                                <input type="submit" name="submit" value="Submit" class="btn btn-info btn-sm" role="button">
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <br>
-                                            <div class="text-center"><a href="#" class="btn btn-info btn-md" role="button">Submit</a></div>
-                                            <div class="pull-right"><a href="#" style="padding-left:20px;">Edit</a><a href="#" style="padding-left:20px;">Delete</a></div>
                                         </div>
                                         {% endfor %}
                                     </div>

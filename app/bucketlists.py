@@ -44,14 +44,11 @@ class BucketLists(object):
         """Deletes bucket list
         and scans for remnants
         """
-        for key, obj in self.bucket_lists.items():
-            if obj == bulist:
+        for key in list(self.bucket_lists.keys()):
+            if key == bulist:
                 del self.bucket_lists[key]
-                for i in list(self.bucket_lists.values()):
+                for i in list(self.bucket_lists.keys()):
                     if i == bulist:
-                        return False
-                for j in list(self.bucket_lists.values()):
-                    if j == key:
                         return False
                 return True
 

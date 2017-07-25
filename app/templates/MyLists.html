@@ -18,7 +18,7 @@
                             <!-- for loop to display tab items (bucketlists) -->
                             {% if sessionblist != 0 %}
                             {% for i in userblist %}
-                            <li><a data-toggle="tab" href="#{{ i }}">{{ i }}</a></li>
+                            <li><a data-toggle="tab" href="#{{i}}">{{ i }}</a></li>
                             {% endfor %}
                             {% else %}
                             <li><a data-toggle="tab" href"#nolist"></a></li>
@@ -108,7 +108,7 @@
                                     <h2 style="padding-left:20px;">{{ userdata[m].list_quote }}</h2>
                                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditBucketList">Edit Bucket List</button>
                                     <form class="horizontal" action={{url_for('delete_list')}} method = "POST">
-                                        <input type="hidden" name="listtodelete" value={{userdata[m]}}>
+                                        <input type="hidden" name="listtodelete" defaultValue={{userblist[m]}}>
                                         <input type="submit" name="submit" value="Delete Bucket List" class="btn btn-danger btn-sm" role="button">
                                     </form>
                                 </div>

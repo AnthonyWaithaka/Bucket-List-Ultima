@@ -1,21 +1,25 @@
 {% extends "base.html" %}
-{% block title %}BucketLists{% endblock %}
+{% block title %}Settings{% endblock %}
 {% block body %}
 
 <h1 class="text-center"> User Settings </h1>
-<h2>Username:</h2>
-<h2>Useremail:</h2>
+<h2 class="jumbotron" style="padding-top:0.1cm;padding-bottom:0.1cm;">Username:{{ title }}</h2>
+<h2 class="jumbotron" style="padding-top:0.1cm;padding-bottom:0.1cm;">Login Email:{{ useremail }}</h2>
 <br>
 <br>
-<form action={{url_for('new_list')}} method = "POST">
-    <div class="form-group">
+<div class="container">
+<form action={{url_for('edit_settings')}} method = "POST">
+    <div class="form-group" style="padding-left:2cm;">
         <label for="newusername">Change Username:</label>
         <input id="newusername" name="newusername" type="text" class="form-control" placeholder=" New Username">
-        <label for="newemail">Change Email:</label>
+        <label for="newemail" style="padding-top:0.5cm;">Change Email:</label>
         <input id="newemail" name="newemail" type="text" class="form-control" placeholder=" New Email">
-        <label for="newpassword">Change Password:</label>
-        <input id="newpassword" name="newpassword" type="text" class="form-control" placeholder=" New Password">
-        <input type="submit" name="submit" value="Submit" class="btn btn-info btn-lg" role="button">
+        <label for="newpassword" style="padding-top:0.5cm;">Change Password:</label>
+        <input id="newpassword" name="newpassword" type="password" class="form-control" placeholder=" New Password">
+        <div  style="padding-top:0.5cm;">
+            <input type="submit" name="submit" value="Submit" class="btn btn-info btn-lg" role="button">
+        </div>
     </div>
 </form>
+</div>
 {% endblock %}

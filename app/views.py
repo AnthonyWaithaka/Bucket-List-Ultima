@@ -144,11 +144,8 @@ def new_list():
 def delete_list():
     listnametodelete = request.form['listtodelete']
     usernametodelete = session['loginuser']
-    if usernametodelete is not None:
-        NEWAPP.ACCESS_LIST[usernametodelete].delete_list(listnametodelete)
-        return redirect(url_for('bucketlists'))
-    else:
-        return redirect(url_for('log_in'))
+    NEWAPP.ACCESS_LIST[usernametodelete].delete_list(listnametodelete)
+    return redirect(url_for('bucketlists'))
 
 @APP.route('/editlist/', methods=['GET', 'POST'])
 def edit_list():
@@ -177,14 +174,25 @@ def add_activity():
 #request session user
 #process changes
 #return to bucketlists function
-@APP.route('/settings', methods=['GET', 'POST'])
+@APP.route('/settings')
 def settings():
+    username = session['loginuser']
+    return render_template('settings.html', title=username, useremail=NEWAPP.USER_LIST[username][0])
+
+@APP.route('/settings/', methods=['GET', 'POST'])
+def edit_settings():
     username = session['loginuser']
     newusername = request.form['newusername']
     newemail = request.form['newemail']
     newpassword = request.form['newpassword']
+
+    if newpassword:
+        NEWAPP.reset_user(username, newpassword=newpassword,
+                          oldpassword=NEWAPP.USER_LIST[username][1])
     if newemail:
-        NEWAPP.reset_user(username, newusername=newusername, newemail=newemail,
-                          newpassword=newpassword, oldpassword=NEWAPP.USER_LIST[username][1],
+        NEWAPP.reset_user(username, newemail=newemail,
                           oldemail=NEWAPP.USER_LIST[username][0])
-    return render_template('settings.html')
+    if newusername:
+        NEWAPP.reset_user(username, newusername=newusername)
+        session['loginuser'] = newusername
+    return redirect(url_for('settings'))

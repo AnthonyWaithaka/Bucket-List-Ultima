@@ -1,3 +1,5 @@
+<!-- app/templates/index.html -->
+
 <!DOCTYPE html>
 <html lan="en">
 	
@@ -9,8 +11,8 @@
 		
 		<title>Bucket List Ultima</title>
 		
-		<link rel="stylesheet" href="css/bootstrap.css">
-		<link rel="stylesheet" href="bodystyle.min.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bodystyle.min.css') }}">
 	
 	</head>
 
@@ -18,10 +20,8 @@
 
 <!-- Navigation Bar -->
 <div class="container">
-
 	<nav class="navbar navbar-default">
 		<div class="container">
-			
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#IndexNavbar" aria-expanded="false">
 					<span class="sr-only"></span>
@@ -30,7 +30,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span> 
 				</button>
-				<a class="pull-left" href="index.html"><img src="images/newlogo_lg.png" alt="Logo" class="logo-large" style="width:60px; height:50px;"></a>
+				<a class="pull-left" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/newlogo_lg.png') }}" alt="Logo" class="logo-large" style="width:60px; height:50px;"></a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="IndexNavbar">
@@ -46,7 +46,11 @@
 
 <!--Register and Log in Tabs-->
 <div class="tab-content">
-	<div id="index_home" class="tab-pane active">
+	{% if pageType == "index" %}
+	<div role="tabpanel" id="index_home" class="tab-pane active">
+	{% else %}
+	<div role="tabpanel" id="index_home" class="tab-pane fade">
+	{% endif %}
 		<!-- Opening Carousel -->
 		<div id="indexCarousel" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -60,18 +64,18 @@
 			<div class="carousel-inner">
 				<div class="item active">
 					<div class="slide1"></div>
-					<img src="images/sample.png" alt="sample">
+					<img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
 					<div class="carousel-caption">
 						<h1>BUCKET LIST ULTIMA</h1>
 						<h1>"BLU"</h1>
 						<h2>The Ultimate Bucket List Maker!</h2>
-						<img src="images/newlogo_lg.png" alt="Logo" class="logo-large" style="width:120px; height:110px;">
+						<img src="{{ url_for('static', filename='images/newlogo_lg.png') }}" alt="Logo" class="logo-large" style="width:120px; height:110px;">
 					</div>
 				</div>
 
 				<div class="item">
 					<div class="slide2"></div>
-					<img src="images/sample.png" alt="sample">
+					<img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
 					<div class="carousel-caption">
 						<h2>What Do You Want To Do?</h2>
 						<br>
@@ -81,7 +85,7 @@
 
 				<div class="item">
 					<div class="slide3"></div>
-					<img src="images/sample.png" alt="sample">
+					<img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
 					<div class="carousel-caption">
 						<h2>What Do You Want To Do?</h2>
 						<h3>Share your Achievements with Friends</h3>
@@ -90,19 +94,19 @@
 			
 				<div class="item">
 					<div class="slide4"></div>
-					<img src="images/sample.png" alt="sample">
+					<img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
 					<div class="carousel-caption">
 						<h2>What Do You Want To Do?</h2>
-						<h3>Be Inspired As You Follow Your Mentor's Achievements</h3>
+						<h3>Follow Your Friends' Achievements</h3>
 					</div>
 				</div>
 
 				<div class="item">
 					<div class="slide5"></div>
-					<img src="images/sample.png" alt="sample">
+					<img src="{{ url_for('static', filename='images/sample.png') }}" alt="sample">
 					<div class="carousel-caption">
 						<h2>What Do You Want To Do?</h2>
-						<h3>Save Memories of The Places You've Been</h3>
+						<h3>Savour Your Memories of Triumph</h3>
 					</div>
 				</div>
 			</div>
@@ -113,7 +117,11 @@
 	
 	</div>
 
-	<div id="create_account" class="tab-pane fade">
+	{% if pageType == "signup" %}
+	<div role="tabpanel" id="create_account" class="tab-pane active">
+	{% else %}
+	<div role="tabpanel" id="create_account" class="tab-pane fade">
+	{% endif %}
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
@@ -123,37 +131,45 @@
 						</div>
 						
 						<div class="panel-body">
-							<form>
+							<form action={{url_for('sign_up')}} method="POST" name="signup">
 								<br>
 								<div class="form-group">
 									<label for="inputsm" class="control-label">Email Address:</label>
-									<input id="inpEmail" class="form-control" placeholder=" example@mail.com">
+									<input name="email" type="text" class="form-control" placeholder=" example@mail.com">
 								</div>
 								<div class="form-group">
 									<label for="inputsm" class="control-label">Enter User Name:</label>
-									<input id="inpUName" class="form-control" placeholder=" My-User-Name">
+									<input name="user" type="text" class="form-control" placeholder=" My-User-Name">
 								</div>
 								<div class="form-group">
 									<label for="inputPassword">Enter Password:</label>
-									<input id="inpEmail" type="password" class="form-control">
+									<input name="pass" type="password" class="form-control">
 								</div>
 								<div class="form-group">
 									<label for="inputPassword2">Confirm Password:</label>
-									<input id="inpEmail" type="password" class="form-control">
+									<input name="pass2" type="password" class="form-control">
 								</div>
+
+								<input type="submit" name="submit" value="Sign Up" class="btn btn-info btn-lg" role="button">
+								{% if message %}
+								<br>
+								<br>
+								<p class="text-center" style="color:red;" >{{ message }}</p>
+								{% endif %}
 							</form>
-							<div class="checkbox">
-								<label><input type="checkbox" value"">I agree to the <a href="docs/TermsandConditions.pdf">Terms and Conditions</a></label>
-							</div>
-							<a href="#" class="btn btn-info btn-lg" role="button">Sign Up</a>
+								
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<div id="login" class="tab-pane fade">
+
+	{% if pageType == "login" %}
+	<div role="tabpanel" id="login" class="tab-pane active">
+	{% else %}
+	<div role="tabpanel" id="login" class="tab-pane fade">
+	{% endif %}
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
@@ -164,24 +180,26 @@
 						</div>
 						
 						<div class="panel-body">
-							<form>
+							<form action={{url_for('log_in')}} method="POST">
 								<br>
 								<div class="form-group">
 									<label for="inputsm" class="control-label">Email/Username:</label>
-									<input id="inpEmail" class="form-control" placeholder=" example@mail.com">
+									<input name="logemail" class="form-control" placeholder=" example@mail.com">
 								</div>
 								<div class="form-group">
 									<label for="inputPassword">Password:</label>
-									<input id="inpEmail" type="password" class="form-control">
+									<input name="logpassword" type="password" class="form-control">
 								</div>
 								<a href="#">Forgot Password?</a>
 								<br>
 								<br>
-								<div class="checkbox">
-									<label><input type="checkbox" value"">Remember Me</label>
-								</div>
 								<br>
-								<a href="home.html" class="btn btn-info" role="button">Log In</a>
+								<input type="submit" name="submit" value="Log In" class="btn btn-info btn-lg" role="button">
+								{% if message2 %}
+								<br>
+								<br>
+								<p class="text-center" style="color:red;" >{{ message2 }}</p>
+								{% endif %}
 							</form>
 						</div>
 					</div>
@@ -191,8 +209,6 @@
 	</div>
 
 </div>
-
-<!-- Page Footer -->
 <footer class="foot-bar text-center">
 	<div class="container">
 	<p>This product is not protected by any copyright law :(</p>
@@ -200,7 +216,7 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"> </script>
-<script src="js/bootstrap.min.js"> </script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"> </script>
 
 </body>
 </html>

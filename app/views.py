@@ -19,6 +19,8 @@ now = datetime.datetime.now()
 def index():
     """Index page render
     """
+    session['messages'] = None
+    session['errormessage'] = None
     return render_template('index.html', pageType="index")
 
 @APP.route('/signup/', methods=['GET', 'POST'])
@@ -93,6 +95,8 @@ def bucketlists():
     #Return active session bucketlist and activity
     bcurrent = session['bcurrent']
     acurrent = session['acurrent']
+    messages = session['messages']
+    errormessage = session['errormessage']
     #Return session user's bucketlists
     sessionblist = []
     deadline = []
@@ -122,7 +126,7 @@ def bucketlists():
                            userblist=userblist, sessionblist=sessionblist,
                            userdata=userdata, userdeadline=userdeadline,
                            useralistdict=useralistdict, bcurrent=bcurrent,
-                           acurrent=acurrent)
+                           acurrent=acurrent, messages=messages, errormessage=errormessage)
 
 @APP.route('/newlist', methods=['GET', 'POST'])
 def new_list():
@@ -134,14 +138,21 @@ def new_list():
     listyear = int(request.form['list_year'])
     listmonth = int(request.form['list_month'])
     listquote = request.form['list_quote']
+    if not listquote:
+        listquote = ""
     if username is not None:
         if listyear != 0 and listmonth != 0:
-            NEWAPP.ACCESS_LIST[username].create_bucket_list(newlistname,
+            if newlistname:
+                NEWAPP.ACCESS_LIST[username].create_bucket_list(newlistname,
                                                             listyear,
                                                             listmonth, listquote)
-            session['bcurrent'] = newlistname
-            return redirect(url_for('bucketlists'))
+                session['bcurrent'] = newlistname
+                return redirect(url_for('bucketlists'))
+            else:
+                session['errormessage'] = "List name must be included"
+                return redirect(url_for('bucketlists'))
         else:
+            session['errormessage'] = "Year and Month must be included"
             return redirect(url_for('bucketlists'))
     else:
         return redirect(url_for('log_in'))
@@ -187,6 +198,10 @@ def add_activity():
     listtoedit = request.form.get('listtoupdate')
     usertoedit = session['loginuser']
     newactivity = request.form['newactivity']
+    if newactivity == listtoedit:
+        session['messages'] = "Cannot create an activity with the same name as the bucketlist"
+        session['bcurrent'] = listtoedit
+        return redirect(url_for('bucketlists'))
     NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].create_activity(newactivity)
     session['bcurrent'] = listtoedit
     session['acurrent'] = newactivity

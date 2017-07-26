@@ -31,6 +31,9 @@
                     <form action={{url_for('new_list')}} method = "POST">
                     <div class="panel panel-default text-center">
                         <div class="panel-body">
+                            {% if errormessage %}
+                            <p style="color:red;" >{{ errormessage }}</p>
+							{% endif %}
                             <input id="inpListName" name="newlistname" class="form-control" placeholder=" New Bucket List">
                             <!--Date selection List-->
                             <div class="form-group horizontal">
@@ -191,6 +194,9 @@
                                     </div>
                                     <!-- New Activities Forms-->
                                     <br>
+                                    {% if messages %}
+                                    <p style="color:red;" >{{ messages }}</p>
+								    {% endif %}
                                     <form action={{url_for('add_activity')}} method = "POST">
                                         <input name="listtoupdate" type="hidden" value="{{ m }}">
                                         <input name="newactivity" class="form-control" placeholder="New Activity">

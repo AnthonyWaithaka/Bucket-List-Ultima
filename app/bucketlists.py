@@ -1,18 +1,22 @@
 # user.py
-"""User module -
-See documentation for use
+"""Bucketlists class -
+Store data for all bucketlists the user has and
+manage the bucketlists.
 """
 
 from .newbucketlist import NewBucketList
 
 class BucketLists(object):
     """BucketLists class -
-    Has specific methods for bucket list management
+    Stores records for the owner of the Bucketlists and
+    the bucketlist names alongside their objects in the object
+    attributes.
+    Has methods to create, read, update and delete all bucketlists.
     """
     def __init__(self, user_name, user_email, user_password):
-        """
-        The list and dictionary are for holding non-persistent data
-        To indicate the owner of the BucketLists
+        """Initialization -
+        The dictionary has the name of the bucketlist as the key and
+        the object itself as the respective value.
         """
         self.user_name = user_name
         self.user_email = user_email
@@ -20,8 +24,9 @@ class BucketLists(object):
         self.bucket_lists = {}
 
     def create_bucket_list(self, list_name, list_year, list_month, list_quote):
-        """Create bucket list with arguments from constructor and
-        store data in structures within the scope of class instance
+        """Create a bucketlist object -
+        Returns None if the name of the bucketlist already exists in the records.
+        Returns the new bucketlist object if it was successfully created.
         """
         for key in list(self.bucket_lists.keys()):
             if list_name == key:
@@ -32,8 +37,9 @@ class BucketLists(object):
         return new_bucket_list
 
     def view_list(self, listname):
-        """Return the object type BucketList
-        for a given bucket list name
+        """Read a bucketlist object using the bucketlist name-
+        Return the bucketlist object if the name exists in the records.
+        Return None otherwise.
         """
         for key, obj in self.bucket_lists.items():
             if key == listname:
@@ -41,8 +47,9 @@ class BucketLists(object):
         return None
 
     def delete_list(self, bulist):
-        """Deletes bucket list
-        and scans for remnants
+        """Delete a bucketlist -
+        Return True if the bucketlist was deleted successfully.
+        Return False if the bucketlist name still exists.
         """
         for key in list(self.bucket_lists.keys()):
             if key == bulist:
@@ -53,11 +60,14 @@ class BucketLists(object):
                 return True
 
     def update_bucketlist(self, listname, **kwargs):
-        """Update bucket list data -
-        newlistname
-        year
-        month
-        quote
+        """Update bucket list data using the following argument values:
+        1. listname (required) - The name of the bucketlist to be updated
+        2. newlistname
+        3. year
+        4. month
+        5. quote
+        Return None if the data update was successful.
+        Return False otherwise.
         """
         newlistname = kwargs.get('newlistname', None)
         newlistyear = kwargs.get('year', None)

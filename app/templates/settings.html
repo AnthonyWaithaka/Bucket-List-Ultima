@@ -16,9 +16,14 @@
         <input id="newemail" name="newemail" type="text" class="form-control" placeholder=" New Email">
         <label for="newpassword" style="padding-top:0.5cm;">Change Password:</label>
         <input id="newpassword" name="newpassword" type="password" class="form-control" placeholder=" New Password">
-        <div  style="padding-top:0.5cm;">
+        <div style="padding-top:0.5cm;">
             <input type="submit" name="submit" value="Submit" class="btn btn-info btn-lg" role="button">
         </div>
+    </div>
+</form>
+<form action = {{url_for('delete_user')}} method="POST">
+    <div style="padding-bottom:0.4cm; padding-left:2cm;">
+    <input type="submit" name="submit" value="Delete User Account" class="btn btn-danger btn-sm" role="button">
     </div>
 </form>
 </div>

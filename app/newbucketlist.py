@@ -1,13 +1,18 @@
 # bucketlist.py
-"""Activity module -
-New bucketlist initialization
+"""NewBucketList class -
+Store data for a bucketlist's activities
+and manage it.
 """
 
 class NewBucketList(object):
     """NewBucketList class -
-    Has methods for activities management
+    This class stores activity data in an attribute type list.
+    This class has methods to create, update and delete activities in the bucketlist.
     """
     def __init__(self, list_name, list_year, list_month, list_quote):
+        """Initialization -
+        Stores information about the name of the bucketlist that the activities belong to.
+        """
         self.list_name = list_name
         self.list_year = list_year
         self.list_month = list_month
@@ -15,7 +20,9 @@ class NewBucketList(object):
         self.activity_list = []    #activity_list will have {name:object} format
 
     def create_activity(self, activity_name):
-        """Returns Activity object or None
+        """Create a new activity -
+        Return True if the activity name was added successfully.
+        Return None if the activity name already exists.
         """
         for i in self.activity_list:
             if i == activity_name:
@@ -24,8 +31,8 @@ class NewBucketList(object):
         return True
 
     def delete_activity(self, activity_name):
-        """Delete an activity
-        Return None
+        """Delete an activity -
+        Return None.
         """
         for i in self.activity_list:
             if i == activity_name:
@@ -33,8 +40,9 @@ class NewBucketList(object):
         return None
 
     def update_activity(self, activity_name, newname):
-        """Update activity name
-        Return None
+        """Update activity name -
+        Return None if update was successful.
+        Return False if activity name still exists.
         """
         for i in self.activity_list:
             if i == activity_name:

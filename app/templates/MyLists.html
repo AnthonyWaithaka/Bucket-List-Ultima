@@ -20,8 +20,6 @@
                             {% for i in userblist %}
                             <li><a data-toggle="tab" href="#{{i.replace(" ", "")}}">{{ i }}</a></li>
                             {% endfor %}
-                            {% else %}
-                            <li><a data-toggle="tab" href"#nolist"></a></li>
                             {% endif %}
                             <!-- endfor -->
                         </ul>
@@ -83,7 +81,11 @@
         <div class="col-lg-9 col-md-9 col-sm-9">
             <div class="tab-content">
                 {% if sessionblist != 0 %}
+                    {% if bcurrent == None %}
                 <div id="default" class="tab-pane active">
+                    {% else %}
+                <div id="default" class="tab-pane">
+                    {% endif %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <br>
@@ -98,17 +100,22 @@
                     </div>
                 </div>
                 {% for m in userblist %}
+                    {% if bcurrent == m %}
+                <div id="{{ m.replace(" ", "") }}" class="tab-pane active">
+                    {% else %}
                 <div id="{{ m.replace(" ", "") }}" class="tab-pane">
+                    {% endif %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3">
+                                <div class="col-lg-9 col-md-3 col-sm-3">
                                     <!-- Replace with data from views.py -->
                                     <h1 style="padding-left:20px;">{{ m }}</h1>
                                     <h2 style="padding-left:20px;">{{ userdata[m].list_quote }}</h2>
                                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditBList{{m.replace(" ","")}}">Edit Bucket List</button>
                                     <form class="form-horizontal" action={{url_for('delete_list')}} method = "POST">
                                         <input type="hidden" name="listtodelete" value="{{m}}">
+                                        <br>
                                         <input type="submit" name="submit" value="Delete Bucket List" class="btn btn-danger btn-sm" role="button">
                                     </form>
                                 </div>
@@ -162,7 +169,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-8 col-md-3 col-sm-3 text-right">
+                                <div class="col-lg-3 col-md-3 col-sm-3 text-right">
                                     <h3>Days Remaining:</h3>
                                     <h3>{{ userdeadline[m] }}</h3>
                                 </div>
@@ -195,7 +202,11 @@
                                     <!--Activities Content-->
                                     <div class="tab-content">
                                         {% for activityitem in useralistdict[m] %}
+                                        {% if acurrent == activityitem %}
+                                        <div id="{{activityitem.replace(" ","")}}" class="tab-pane active">
+                                        {% else %}
                                         <div id="{{activityitem.replace(" ","")}}" class="tab-pane">
+                                        {% endif %}
                                             <br>
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditActivity{{activityitem.replace(" ","")}}">Edit Activity Name</button>
                                             <form action={{url_for('delete_activity')}} method="POST">
@@ -235,72 +246,6 @@
                     </div>
                 </div>
                 {% endfor %}
-                {% else %}
-
-                <div id="nolist" class="tab-pane active">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3">
-                                    <!-- Replace with data from views.py -->
-                                    <h1 style="padding-left:20px;" class="text-center">You don't have any Bucket Lists yet</h1>
-                                </div>
-                                <div class="col-lg-8 col-md-3 col-sm-3 text-right">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="panel-body">
-                            <h1 class="text-center">Create your first bucket list here:</h1>
-                            <form action={{url_for('new_list')}} method = "POST">
-                                <div class="panel panel-default text-center">
-                                    <div class="panel-body">
-                                        <input id="inpListName" name="newlistname" type="text" class="form-control" placeholder=" New Bucket List">
-                                        <!--Date selection List-->
-                                        <div class="form-group horizontal">
-                                            <br>
-                                            <label for="blist1"><p>Done By:</p></label>
-                                            <select class="form-control" name="list_year" id="blist1">
-                                                <option value="0">Year</option>
-                                                <option value="2017">2017</option>
-                                                <option value="2018">2018</option>
-                                                <option value="2019">2019</option>
-                                                <option value="2020">2020</option>
-                                                <option value="2021">2021</option>
-                                                <option value="2022">2022</option>
-                                            </select>
-                                            <select class="form-control" name="list_month" id="blist2">
-                                                <option value="0">Month</option>
-                                                <option value="1">January</option>
-                                                <option value="2">February</option>
-                                                <option value="3">March</option>
-                                                <option value="4">April</option>
-                                                <option value="5">May</option>
-                                                <option value="6">June</option>
-                                                <option value="7">July</option>
-                                                <option value="8">August</option>
-                                                <option value="9">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
-                                            </select>
-                                        </div>
-                                        <!--Comment field-->
-                                        <div class="form-group">
-                                            <label for="quote">Quote:</label>
-                                            <textarea class="form-control" name="list_quote" type="text" rows="3" id="comment"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer">
-                                        <input type="submit" name="submit" value="Submit New List" class="btn btn-info btn-lg" role="button">
-                                    </div>
-                                </div>
-                                </form>
-                        </div>
-                    </div>
-                </div>
-
-
                 {% endif %}
             </div>
         </div>

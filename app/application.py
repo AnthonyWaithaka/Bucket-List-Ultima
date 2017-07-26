@@ -1,15 +1,19 @@
 # app/application.py
-"""Methods for registering users
-and keeping records
+"""Application class -
+Store account data for all user accounts and
+manage it.
 """
 
 import re
 from .bucketlists import BucketLists
 
 class Application(object):
-    """Application is not meant to have
-    instances but to reference methods
-    and class variables
+    """This class stores User data
+    in class variables.
+    This class has functions to register, read, update
+    and delete user account data.
+    This class has a function to create a new object that keeps
+    track of all the user's bucketlists.
     """
     EMAIL_LIST = []
     PASSWORD_LIST = []
@@ -20,7 +24,8 @@ class Application(object):
         pass
 
     def validate_email(self, user_email):
-        """Return email for valid email address format.
+        """Check for validity of email address input.
+        Return email for valid email address format.
         Return false otherwise
         """
         match = re.match(
@@ -33,7 +38,9 @@ class Application(object):
             return user_email
 
     def check_email_repeat(self, user_email):
-        """Return True for existing email address record
+        """Check for existing email address record.
+        Return True for existing email address record.
+        Return False otherwise.
         """
         checker = False
         for i in self.EMAIL_LIST:
@@ -43,7 +50,9 @@ class Application(object):
         return checker
 
     def check_password_repeat(self, user_password):
-        """Checks if existing password record
+        """Check for existing password record.
+        Return True for existing password record.
+        Return False otherwise.
         """
         checker = False
         for i in self.PASSWORD_LIST:
@@ -53,7 +62,9 @@ class Application(object):
         return checker
 
     def check_username_repeat(self, user_name):
-        """Checks for existing username record
+        """Check for existing username record.
+        Return True for existing username record.
+        Return False otherwise.
         """
         checker = False
         for i in self.USERNAME_LIST:
@@ -63,8 +74,11 @@ class Application(object):
         return checker
 
     def create_user(self, user_email, user_name, user_password, terms_and_conditions):
-        """Create BucketLists object initialized
-        to the user's data
+        """Create new user object initialized
+        to the user's data.
+        Store the user data in class variables.
+        Return new user object if creation was successful.
+        Return None if input was invalid or already exists in records.
         """
         new_user_email = self.validate_email(user_email)
 
@@ -101,9 +115,10 @@ class Application(object):
         return new_user
 
     def delete_user(self, username):
-        """Delete user's BucketLists object and scan
-        for remnant data. Returns True for error
-        and None for no error
+        """Delete user's object data (bucketlist and items data)
+        and scan for remnants in the records.
+        Return True if record still exists.
+        Return None if record was successfully deleted.
         """
         for key in list(self.ACCESS_LIST.keys()):
             checker = None
@@ -133,7 +148,9 @@ class Application(object):
             return checker
 
     def view_user(self, username):
-        """Find bucketlists with username
+        """Find user's object data (bucketlists and bucketlist items).
+        Return a list of all bucketlist objects if username exists.
+        Return None otherwise.
         """
         for i in self.USERNAME_LIST:
             if username == i:
@@ -142,7 +159,9 @@ class Application(object):
         return None
 
     def view_bucket_list(self, listname, username):
-        """Find a user's bucket lists from username
+        """Finds a user's bucket list names from username.
+        Return a list of names for all bucketlists if username exists.
+        Return None otherwise.
         """
         holder = self.ACCESS_LIST[username]
         if holder.view_list(listname) != None:
@@ -150,7 +169,10 @@ class Application(object):
         return None
 
     def search_user(self, useremail):
-        """Find username from email
+        """Find a user account's username from an email address.
+        Return the respective username if the email address exists
+        in the records.
+        Return None otherwise.
         """
         for i in self.USERNAME_LIST:
             holder = self.USER_LIST[i]
@@ -159,10 +181,17 @@ class Application(object):
         return None
 
     def reset_user(self, username, **kwargs):
-        """Reset user's data:
-        1. username
-        2. useremail
-        3. userpassword
+        """Reset user account's data based on the following
+        argument values:
+        1. username (required)
+        2. newusername
+        3. oldemail
+        4. newemail
+        5. oldpassword
+        6. newpassword
+        Return None if update was successful.
+        Return False if either the update was successful or the items
+        to change do not exist in the records.
         """
         newusername = kwargs.get('newusername', None)
         oldpassword = kwargs.get('oldpassword', None)

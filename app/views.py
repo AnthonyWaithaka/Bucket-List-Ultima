@@ -57,6 +57,8 @@ def log_in():
     email = request.form['logemail']
     password = request.form['logpassword']
     session['loginuser'] = None
+    session['bcurrent'] = None
+    session['acurrent'] = None
     if NEWAPP.validate_email(email) is False:
         if NEWAPP.check_username_repeat(email) is True:
             #check that password matches username
@@ -82,12 +84,15 @@ def log_in():
 
 @APP.route('/mylists', methods=['GET', 'POST'])
 def bucketlists():
-    """BucketLists page
+    """Bucketlists page
     """
     if session['loginuser']:
         username = session['loginuser']
     else:
         return redirect(url_for('log_in'))
+    #Return active session bucketlist and activity
+    bcurrent = session['bcurrent']
+    acurrent = session['acurrent']
     #Return session user's bucketlists
     sessionblist = []
     deadline = []
@@ -116,7 +121,8 @@ def bucketlists():
     return render_template("MyLists.html", title=username, user=username,
                            userblist=userblist, sessionblist=sessionblist,
                            userdata=userdata, userdeadline=userdeadline,
-                           useralistdict = useralistdict)
+                           useralistdict=useralistdict, bcurrent=bcurrent,
+                           acurrent=acurrent)
 
 @APP.route('/newlist', methods=['GET', 'POST'])
 def new_list():
@@ -133,6 +139,7 @@ def new_list():
             NEWAPP.ACCESS_LIST[username].create_bucket_list(newlistname,
                                                             listyear,
                                                             listmonth, listquote)
+            session['bcurrent'] = newlistname
             return redirect(url_for('bucketlists'))
         else:
             return redirect(url_for('bucketlists'))
@@ -141,61 +148,86 @@ def new_list():
 
 @APP.route('/deletelist/', methods=['GET', 'POST'])
 def delete_list():
+    """Delete Bucketlist
+    """
     listnametodelete = request.form['listtodelete']
     usernametodelete = session['loginuser']
     NEWAPP.ACCESS_LIST[usernametodelete].delete_list(listnametodelete)
+    session['bcurrent'] = None
     return redirect(url_for('bucketlists'))
 
 @APP.route('/editlist/', methods=['GET', 'POST'])
 def edit_list():
+    """Update Bucketlist
+    """
     listnametoedit = request.form.get('listtoedit')
     username = session['loginuser']
     newlistname = request.form['newbname']
     newlistquote = request.form['newbquote']
     listyear = int(request.form['editlist_year'])
     listmonth = int(request.form['editlist_month'])
-    if newlistname:
-        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, newlistname=newlistname)
     if newlistquote:
         NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, quote=newlistquote)
+        session['bcurrent'] = listnametoedit
     if listyear != 0:
         NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, year=listyear)
+        session['bcurrent'] = listnametoedit
     if listmonth != 0:
         NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, month=listmonth)
+        session['bcurrent'] = listnametoedit
+    if newlistname:
+        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, newlistname=newlistname)
+        session['bcurrent'] = newlistname
     return redirect(url_for('bucketlists'))
 
 @APP.route('/addactivity/', methods=['GET', 'POST'])
 def add_activity():
+    """Create Bucketlist Item
+    """
     listtoedit = request.form.get('listtoupdate')
     usertoedit = session['loginuser']
     newactivity = request.form['newactivity']
     NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].create_activity(newactivity)
+    session['bcurrent'] = listtoedit
+    session['acurrent'] = newactivity
     return redirect(url_for('bucketlists'))
 
 @APP.route('/editactivity/', methods=['GET', 'POST'])
 def edit_activity():
+    """Update Bucketlist Item
+    """
     listtoedit = request.form.get('blisttoedit')
     usertoedit = session['loginuser']
     newname = request.form['newaname']
     aname = request.form.get('currentactivity')
     NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].update_activity(aname, newname)
+    session['bcurrent'] = listtoedit
+    session['acurrent'] = newname
     return redirect(url_for('bucketlists'))
 
 @APP.route('/deleteactivity/', methods=['GET', 'POST'])
 def delete_activity():
+    """Delete Bucketlist Item
+    """
     listtoedit = request.form.get('blisttodelete')
     usertoedit = session['loginuser']
     delname = request.form.get('atodelete')
     NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].delete_activity(delname)
+    session['bcurrent'] = listtoedit
+    session['acurrent'] = None
     return redirect(url_for('bucketlists'))
 
 @APP.route('/settings')
 def settings():
+    """Render User Account Page
+    """
     username = session['loginuser']
     return render_template('settings.html', title=username, useremail=NEWAPP.USER_LIST[username][0])
 
 @APP.route('/settings/', methods=['GET', 'POST'])
 def edit_settings():
+    """Update User Account
+    """
     username = session['loginuser']
     newusername = request.form['newusername']
     newemail = request.form['newemail']
@@ -211,3 +243,14 @@ def edit_settings():
         NEWAPP.reset_user(username, newusername=newusername)
         session['loginuser'] = newusername
     return redirect(url_for('settings'))
+
+@APP.route('/deleteuser/', methods=['GET', 'POST'])
+def delete_user():
+    """Delete User Account
+    """
+    username = session['loginuser']
+    if username:
+        NEWAPP.delete_user(username)
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('settings'))

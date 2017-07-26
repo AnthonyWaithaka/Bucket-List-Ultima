@@ -32,7 +32,7 @@ class ApplicationTestCase(unittest.TestCase):
         """
         new_user = self.app.create_user('something3@yes.com', 'guy3', 'aaa114', True)
         new_user.create_bucket_list("guy3's list", 2012, "December",
-                                    "I have a good feeling about this", True)
+                                    "I have a good feeling about this")
         guy4_list = self.app.view_user('guy3')
         self.assertIsInstance(guy4_list[0], NewBucketList, msg="List return unsuccessful")
 
@@ -48,7 +48,7 @@ class ApplicationTestCase(unittest.TestCase):
         """
         new_user = self.app.create_user('something5@yes.com', 'guy5', 'aaa116', True)
         new_user.create_bucket_list('List_01', 2018, "January",
-                                      "I feel like a million bucks", True)
+                                      "I feel like a million bucks")
         self.assertIsInstance(self.app.view_bucket_list('List_01', 'guy5'),
                               NewBucketList, msg="Bucket list creation unsuccessful")
 
@@ -64,7 +64,7 @@ class ApplicationTestCase(unittest.TestCase):
         """
         new_user = self.app.create_user('something6@yes.com', 'guy6', 'aaa117', True)
         new_user.create_bucket_list('Cartoon binge', 2018, "January",
-                                    "I feel like a million bucks", True)
+                                    "I feel like a million bucks")
         self.app.reset_user('guy6', newusername='guy7')
         bucket_list = self.app.view_bucket_list('Cartoon binge', 'guy7')
         self.assertEqual(bucket_list.list_name, 'Cartoon binge', msg="Username change unsuccessful")

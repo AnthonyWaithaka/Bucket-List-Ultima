@@ -15,7 +15,7 @@ from app.application import Application
 NEWAPP = Application()
 now = datetime.datetime.now()
 
-@APP.route('/index', methods=['GET', 'POST'])
+@APP.route('/', methods=['GET', 'POST'])
 def index():
     """Index page render
     """
@@ -36,6 +36,14 @@ def sign_up():
         #Verify email, username and password here
         if NEWAPP.check_email_repeat(email) is False:
             if NEWAPP.check_username_repeat(username) is False:
+                if not password:
+                    message = "You must enter a password"
+                    return render_template('index.html', pageType="signup", message=message)
+
+                if not password2:
+                    message = "You must confirm your password"
+                    return render_template('index.html', pageType="signup", message=message)
+
                 if NEWAPP.check_password_repeat(password) is False:
                     new_user = NEWAPP.create_user(email, username, password, True)
                     if new_user is not None:

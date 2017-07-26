@@ -6,7 +6,7 @@
 
 An application to plan, record and share achievements/experiences.
 
-### Current UI 17/7/2017:
+### Current UI 26/7/2017:
 1. Landing page with introductory text and image carousel
     1.1 Forms to add an account and log in to an existing account
 2. Home page

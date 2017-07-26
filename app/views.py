@@ -15,7 +15,7 @@ from app.application import Application
 NEWAPP = Application()
 now = datetime.datetime.now()
 
-@APP.route('/index', methods=['GET'])
+@APP.route('/', methods=['GET'])
 def index():
     """Index page render
     """

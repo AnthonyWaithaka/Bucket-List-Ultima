@@ -141,6 +141,7 @@ def new_list():
     """Bucketlists page
     New list method
     """
+    session['errormessage'] = None
     username = session['loginuser']
     newlistname = request.form['newlistname']
     listyear = int(request.form['list_year'])
@@ -169,6 +170,7 @@ def new_list():
 def delete_list():
     """Delete Bucketlist
     """
+    session['errormessage'] = None
     listnametodelete = request.form['listtodelete']
     usernametodelete = session['loginuser']
     NEWAPP.ACCESS_LIST[usernametodelete].delete_list(listnametodelete)
@@ -179,6 +181,7 @@ def delete_list():
 def edit_list():
     """Update Bucketlist
     """
+    session['errormessage'] = None
     listnametoedit = request.form.get('listtoedit')
     username = session['loginuser']
     newlistname = request.form['newbname']
@@ -203,6 +206,7 @@ def edit_list():
 def add_activity():
     """Create Bucketlist Item
     """
+    session['errormessage'] = None
     listtoedit = request.form.get('listtoupdate')
     usertoedit = session['loginuser']
     newactivity = request.form['newactivity']
@@ -219,6 +223,7 @@ def add_activity():
 def edit_activity():
     """Update Bucketlist Item
     """
+    session['errormessage'] = None
     listtoedit = request.form.get('blisttoedit')
     usertoedit = session['loginuser']
     newname = request.form['newaname']
@@ -232,6 +237,7 @@ def edit_activity():
 def delete_activity():
     """Delete Bucketlist Item
     """
+    session['errormessage'] = None
     listtoedit = request.form.get('blisttodelete')
     usertoedit = session['loginuser']
     delname = request.form.get('atodelete')
@@ -244,6 +250,7 @@ def delete_activity():
 def settings():
     """Render User Account Page
     """
+    session['errormessage'] = None
     username = session['loginuser']
     return render_template('settings.html', title=username, useremail=NEWAPP.USER_LIST[username][0])
 
@@ -251,6 +258,7 @@ def settings():
 def edit_settings():
     """Update User Account
     """
+    session['errormessage'] = None
     username = session['loginuser']
     newusername = request.form['newusername']
     newemail = request.form['newemail']
@@ -271,6 +279,7 @@ def edit_settings():
 def delete_user():
     """Delete User Account
     """
+    session['errormessage'] = None
     username = session['loginuser']
     if username:
         NEWAPP.delete_user(username)

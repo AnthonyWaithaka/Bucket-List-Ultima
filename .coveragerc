@@ -13,5 +13,8 @@ omit= */python?.?/*
       */numbers.py
       */uuid.py
       */hmac.py
+      */http/*
+      *stringprep.py
+      */encodings/*
 [html]
 directory = coverage_html

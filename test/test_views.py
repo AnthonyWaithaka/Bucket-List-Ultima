@@ -64,8 +64,7 @@ class ViewsTestCase(unittest.TestCase):
         response = self.app.post('/signup/', data={'email':'guy3@yes.com',
                                                    'user':'guy3', 'pass':'aaa3',
                                                    'pass2':'aaa3'})
-        login_response = self.app.post('/login/', data={'logemail':'guy3', 'logpassword':'aaa3'},
-                                                        follow_redirects=True)
+        login_response = self.app.post('/login/', data={'logemail':'guy3', 'logpassword':'aaa3'})
         self.assertEqual(login_response.status_code, 302, msg="Did not return bucket_lists page")
 
 if __name__ == '__main__':

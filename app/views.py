@@ -105,6 +105,7 @@ def bucketlists():
     acurrent = session['acurrent']
     messages = session['messages']
     errormessage = session['errormessage']
+
     #Return session user's bucketlists
     sessionblist = []
     deadline = []

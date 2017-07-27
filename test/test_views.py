@@ -68,15 +68,5 @@ class ViewsTestCase(unittest.TestCase):
                                                         follow_redirects=True)
         self.assertEqual(login_response.status_code, 302, msg="Did not return bucket_lists page")
 
-    def test_login_data(self):
-        """Test session data when user logs in to
-        their account
-        """
-        response = self.app.post('/signup/', data={'email':'guy4@yes.com',
-                                                   'user':'guy4', 'pass':'aaa4',
-                                                   'pass2':'aaa4'})
-        login_response = self.app.post('/login/', data={'logemail':'guy4', 'logpassword':'aaa4'})
-        self.assertEqual(session['loginuser'], 'guy4', msg="User did not log in successfully")
-
 if __name__ == '__main__':
     unittest.main()

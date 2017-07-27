@@ -4,6 +4,8 @@
 
 [![Test Coverage](https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg)](https://codeclimate.com/github/codeclimate/codeclimate/coverage)
 
+[![Coverage Status](https://coveralls.io/repos/github/AnthonyWaithaka/Bucket-List-Ultima/badge.svg?branch=master)](https://coveralls.io/github/AnthonyWaithaka/Bucket-List-Ultima?branch=master)
+
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 
 An application to plan, record and share achievements/experiences.

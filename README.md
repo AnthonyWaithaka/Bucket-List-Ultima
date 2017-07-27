@@ -1,12 +1,6 @@
 
 # Bucket-List-Ultima
-[![Build Status](https://travis-ci.org/AnthonyWaithaka/Bucket-List-Ultima.svg?branch=master)](https://travis-ci.org/AnthonyWaithaka/Bucket-List-Ultima)
-
-[![Test Coverage](https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg)](https://codeclimate.com/github/codeclimate/codeclimate/coverage)
-
-[![Coverage Status](https://coveralls.io/repos/github/AnthonyWaithaka/Bucket-List-Ultima/badge.svg?branch=master)](https://coveralls.io/github/AnthonyWaithaka/Bucket-List-Ultima?branch=master)
-
-[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+[![Build Status](https://travis-ci.org/AnthonyWaithaka/Bucket-List-Ultima.svg?branch=master)](https://travis-ci.org/AnthonyWaithaka/Bucket-List-Ultima) [![Test Coverage](https://codeclimate.com/github/AnthonyWaithaka/Bucket-List-Ultima.svg?branch=master)](https://codeclimate.com/github/AnthonyWaithaka/Bucket-List-Ultima) [![Coverage Status](https://coveralls.io/repos/github/AnthonyWaithaka/Bucket-List-Ultima/badge.svg?branch=master)](https://coveralls.io/github/AnthonyWaithaka/Bucket-List-Ultima?branch=master)
 
 An application to plan, record and share achievements/experiences.
 
@@ -32,9 +26,9 @@ An application to plan, record and share achievements/experiences.
 3. A form to accept input and create a new user account
 4. A form to accept input and log in to an existing user account
 
-![alt text](design/progress_images/landing2.png "Landing Page - Home")
-![alt text](design/progress_images/log_in.png "Landing Page - Log In tab")
-![alt text](design/progress_images/register.png "Landing Page - Register tab")
+![alt text](design/progress_images/landing.jpg "Landing Page - Home")
+![alt text](design/progress_images/log_in.jpg "Landing Page - Log In tab")
+![alt text](design/progress_images/create_account.jpg "Landing Page - Register tab")
 
 
 ### The file "home.html" contains the main interactive page with the following features:
@@ -47,7 +41,7 @@ An application to plan, record and share achievements/experiences.
 3. A link to the user's Settings page where the user can edit their login details and delete their account.
 4. A link to log out, end the user's session and return to the Landing Page.
 
-![alt text](design/progress_images/home.png "Home")
+![alt text](design/progress_images/my_lists.jpg "My Lists")
 
 
 ### The file "MyLists.html" has the following features:
@@ -60,8 +54,9 @@ An application to plan, record and share achievements/experiences.
 7. Create a new activity in a bucketlist
 8. Delete an activity from a bucketlist
 
-![alt text](design/progress_images/rev01_my_lists.png "My Lists")
-![alt text](design/progress_images/rev01_my_lists2.png "My Lists - Activity 1")
+![alt text](design/progress_images/my_lists2.jpg "My Lists - 1")
+![alt text](design/progress_images/my_lists3.jpg "My Lists - 2")
+![alt text](design/progress_images/my_settings.jpg "My Settings")
 
 ## Instructions for Use (APP):
 1. Navigate the carousel to view all the images and captions by clicking on the left and right chevrons

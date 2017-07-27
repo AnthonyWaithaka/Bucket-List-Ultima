@@ -30,8 +30,8 @@ class ViewsTestCase(unittest.TestCase):
     def tearDown(self):
         """Clean up the data from the tests
         """
-        self.app.data={}
-        self.app.free_id=0
+        self.app.data = {}
+        self.app.free_id = 0
 
     def test_index_status_code(self):
         """Send HTTP GET request to the app

@@ -1,13 +1,13 @@
-# bucketlist.py
-"""NewBucketList class -
+# app/activity.py
+"""Activity class -
 Store data for a bucketlist's activities
 and manage it.
 """
 
-class NewBucketList(object):
-    """NewBucketList class -
-    This class stores activity data in an attribute type list.
-    This class has methods to create, update and delete activities in the bucketlist.
+class Activity(object):
+    """Activity class -
+    Stores activity data in an attribute type list.
+    Contains methods to create, update and delete activities in the bucketlist.
     """
     def __init__(self, list_name, list_year, list_month, list_quote):
         """Initialization -

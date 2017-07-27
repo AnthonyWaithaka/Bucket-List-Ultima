@@ -4,8 +4,7 @@
 
 import unittest
 
-from app.bucketlists import BucketLists
-from app.newbucketlist import NewBucketList
+from app.bucketlist import BucketList
 
 class ServerTestCase(unittest.TestCase):
     """Several test cases for 'happy' use of bucketlist methods
@@ -13,7 +12,7 @@ class ServerTestCase(unittest.TestCase):
     def setUp(self):
         """Initialization of test objects
         """
-        self.new_user = BucketLists('guy1', 'guy@yes.com', 'aaa')
+        self.new_user = BucketList('guy1', 'guy@yes.com', 'aaa')
 
     def test_create_activity(self):
         """Test for successful creation of activity object

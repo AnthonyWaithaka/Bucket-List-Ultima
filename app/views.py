@@ -10,9 +10,9 @@ from flask import render_template, redirect, session
 from flask import request, url_for
 
 from app import APP
-from app.application import Application
+from app.user import User
 
-NEWAPP = Application()
+new_server = User()
 now = datetime.datetime.now()
 
 @APP.route('/', methods=['GET'])
@@ -34,8 +34,8 @@ def sign_up():
 
     if password == password2:
         #Verify email, username and password here
-        if NEWAPP.check_email_repeat(email) is False:
-            if NEWAPP.check_username_repeat(username) is False:
+        if new_server.check_email_repeat(email) is False:
+            if new_server.check_username_repeat(username) is False:
                 if not password:
                     message = "You must enter a password"
                     return render_template('index.html', pageType="signup", message=message)
@@ -44,8 +44,8 @@ def sign_up():
                     message = "You must confirm your password"
                     return render_template('index.html', pageType="signup", message=message)
 
-                if NEWAPP.check_password_repeat(password) is False:
-                    new_user = NEWAPP.create_user(email, username, password, True)
+                if new_server.check_password_repeat(password) is False:
+                    new_user = new_server.create_user(email, username, password, True)
                     if new_user is not None:
                         return render_template('index.html', pageType="login")
                     else:
@@ -69,10 +69,10 @@ def log_in():
     session['loginuser'] = None
     session['bcurrent'] = None
     session['acurrent'] = None
-    if NEWAPP.validate_email(email) is False:
-        if NEWAPP.check_username_repeat(email) is True:
+    if new_server.validate_email(email) is False:
+        if new_server.check_username_repeat(email) is True:
             #check that password matches username
-            if NEWAPP.USER_LIST[email][1] == password:
+            if new_server.USER_LIST[email][1] == password:
                 session['loginuser'] = email  #store username in session cache
                 return redirect(url_for('bucketlists'))
             else:
@@ -80,10 +80,10 @@ def log_in():
         else:
             message = "Username is not in records"
     else:
-        if NEWAPP.check_email_repeat(email) is True:
+        if new_server.check_email_repeat(email) is True:
             #check that password matches email
-            loguser = NEWAPP.search_user(email)
-            if NEWAPP.USER_LIST[loguser][1] == password:
+            loguser = new_server.search_user(email)
+            if new_server.USER_LIST[loguser][1] == password:
                 session['loginuser'] = loguser  #store username in session cache
                 return redirect(url_for('bucketlists'))
             else:
@@ -110,14 +110,14 @@ def bucketlists():
     deadline = []
     useralist = []
     useralistdict = {}
-    userblist = list(NEWAPP.ACCESS_LIST[username].bucket_lists.keys())
+    userblist = list(new_server.ACCESS_LIST[username].bucket_lists.keys())
     if userblist is not None:
         for key in userblist:
-            sessionblist.append(NEWAPP.ACCESS_LIST[username].bucket_lists[key])
-            useralist = (list(NEWAPP.ACCESS_LIST[username].bucket_lists[key].activity_list))
+            sessionblist.append(new_server.ACCESS_LIST[username].bucket_lists[key])
+            useralist = (list(new_server.ACCESS_LIST[username].bucket_lists[key].activity_list))
             useralistdict.update({key:useralist})
-            date_one = date(NEWAPP.ACCESS_LIST[username].bucket_lists[key].list_year,
-                            NEWAPP.ACCESS_LIST[username].bucket_lists[key].list_month, 1)
+            date_one = date(new_server.ACCESS_LIST[username].bucket_lists[key].list_year,
+                            new_server.ACCESS_LIST[username].bucket_lists[key].list_month, 1)
             date_two = date(now.year, now.month, 1)
             delta = date_one - date_two
             if delta.days < 0:
@@ -152,9 +152,10 @@ def new_list():
     if username is not None:
         if listyear != 0 and listmonth != 0:
             if newlistname:
-                NEWAPP.ACCESS_LIST[username].create_bucket_list(newlistname,
-                                                            listyear,
-                                                            listmonth, listquote)
+                new_server.ACCESS_LIST[username].create_bucket_list(newlistname,
+                                                                    listyear,
+                                                                    listmonth,
+                                                                    listquote)
                 session['bcurrent'] = newlistname
                 return redirect(url_for('bucketlists'))
             else:
@@ -173,7 +174,7 @@ def delete_list():
     session['errormessage'] = None
     listnametodelete = request.form['listtodelete']
     usernametodelete = session['loginuser']
-    NEWAPP.ACCESS_LIST[usernametodelete].delete_list(listnametodelete)
+    new_server.ACCESS_LIST[usernametodelete].delete_list(listnametodelete)
     session['bcurrent'] = None
     return redirect(url_for('bucketlists'))
 
@@ -189,16 +190,16 @@ def edit_list():
     listyear = int(request.form['editlist_year'])
     listmonth = int(request.form['editlist_month'])
     if newlistquote:
-        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, quote=newlistquote)
+        new_server.ACCESS_LIST[username].update_bucketlist(listnametoedit, quote=newlistquote)
         session['bcurrent'] = listnametoedit
     if listyear != 0:
-        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, year=listyear)
+        new_server.ACCESS_LIST[username].update_bucketlist(listnametoedit, year=listyear)
         session['bcurrent'] = listnametoedit
     if listmonth != 0:
-        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, month=listmonth)
+        new_server.ACCESS_LIST[username].update_bucketlist(listnametoedit, month=listmonth)
         session['bcurrent'] = listnametoedit
     if newlistname:
-        NEWAPP.ACCESS_LIST[username].update_bucketlist(listnametoedit, newlistname=newlistname)
+        new_server.ACCESS_LIST[username].update_bucketlist(listnametoedit, newlistname=newlistname)
         session['bcurrent'] = newlistname
     return redirect(url_for('bucketlists'))
 
@@ -214,7 +215,7 @@ def add_activity():
         session['messages'] = "Cannot create an activity with the same name as the bucketlist"
         session['bcurrent'] = listtoedit
         return redirect(url_for('bucketlists'))
-    NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].create_activity(newactivity)
+    new_server.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].create_activity(newactivity)
     session['bcurrent'] = listtoedit
     session['acurrent'] = newactivity
     return redirect(url_for('bucketlists'))
@@ -228,7 +229,7 @@ def edit_activity():
     usertoedit = session['loginuser']
     newname = request.form['newaname']
     aname = request.form.get('currentactivity')
-    NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].update_activity(aname, newname)
+    new_server.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].update_activity(aname, newname)
     session['bcurrent'] = listtoedit
     session['acurrent'] = newname
     return redirect(url_for('bucketlists'))
@@ -241,7 +242,7 @@ def delete_activity():
     listtoedit = request.form.get('blisttodelete')
     usertoedit = session['loginuser']
     delname = request.form.get('atodelete')
-    NEWAPP.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].delete_activity(delname)
+    new_server.ACCESS_LIST[usertoedit].bucket_lists[listtoedit].delete_activity(delname)
     session['bcurrent'] = listtoedit
     session['acurrent'] = None
     return redirect(url_for('bucketlists'))
@@ -252,7 +253,8 @@ def settings():
     """
     session['errormessage'] = None
     username = session['loginuser']
-    return render_template('settings.html', title=username, useremail=NEWAPP.USER_LIST[username][0])
+    return render_template('settings.html', title=username,
+                           useremail=new_server.USER_LIST[username][0])
 
 @APP.route('/settings/', methods=['GET', 'POST'])
 def edit_settings():
@@ -265,13 +267,13 @@ def edit_settings():
     newpassword = request.form['newpassword']
 
     if newpassword:
-        NEWAPP.reset_user(username, newpassword=newpassword,
-                          oldpassword=NEWAPP.USER_LIST[username][1])
+        new_server.reset_user(username, newpassword=newpassword,
+                              oldpassword=new_server.USER_LIST[username][1])
     if newemail:
-        NEWAPP.reset_user(username, newemail=newemail,
-                          oldemail=NEWAPP.USER_LIST[username][0])
+        new_server.reset_user(username, newemail=newemail,
+                              oldemail=new_server.USER_LIST[username][0])
     if newusername:
-        NEWAPP.reset_user(username, newusername=newusername)
+        new_server.reset_user(username, newusername=newusername)
         session['loginuser'] = newusername
     return redirect(url_for('settings'))
 
@@ -282,7 +284,7 @@ def delete_user():
     session['errormessage'] = None
     username = session['loginuser']
     if username:
-        NEWAPP.delete_user(username)
+        new_server.delete_user(username)
         return redirect(url_for('index'))
     else:
         return redirect(url_for('settings'))

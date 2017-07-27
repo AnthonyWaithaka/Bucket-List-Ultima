@@ -1,13 +1,13 @@
-# app/application.py
-"""Application class -
+# app/user.py
+"""User class -
 Store account data for all user accounts and
 manage it.
 """
 
 import re
-from .bucketlists import BucketLists
+from .bucketlist import BucketList
 
-class Application(object):
+class User(object):
     """This class stores User data
     in class variables.
     This class has functions to register, read, update
@@ -106,7 +106,7 @@ class Application(object):
         self.USER_LIST.update({user_name:[new_user_email, user_password]})
 
         #create a user's bucketlist group initialized with user_id, email_address and pwd
-        new_user = BucketLists(user_name, new_user_email, user_password)
+        new_user = BucketList(user_name, new_user_email, user_password)
 
         #add user_id and associated object to ACCESS_LIST
         self.ACCESS_LIST.update({user_name:new_user})

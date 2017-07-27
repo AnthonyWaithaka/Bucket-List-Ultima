@@ -3,8 +3,8 @@
 """
 import unittest
 
-from app.bucketlists import BucketLists
-from app.newbucketlist import NewBucketList
+from app.bucketlist import BucketList
+from app.activity import Activity
 
 class BucketListTestCase(unittest.TestCase):
     """Several test cases for positive
@@ -12,21 +12,21 @@ class BucketListTestCase(unittest.TestCase):
     def setUp(self):
         """Create a new user object for testing
         """
-        self.new_user = BucketLists('theguy', 'something@yes.com', 'aaa1111')
+        self.new_user = BucketList('theguy', 'something@yes.com', 'aaa1111')
 
     def test_create_bucket_list(self):
         """Test that bucket list creation was successful
         """
         new_list = self.new_user.create_bucket_list('List_01', 2018, "January",
                                                     "I feel like a million bucks")
-        self.assertIsInstance(new_list, NewBucketList, msg="Bucket List creation unsuccessful")
+        self.assertIsInstance(new_list, Activity, msg="Bucket List creation unsuccessful")
 
     def test_view_bucket_list(self):
         """Test that a valid object with saved data is returned
         """
         self.new_user.create_bucket_list('Awesome Adventure', 2030, "January",
                                          "It will be most excellent")
-        self.assertIsInstance(self.new_user.view_list('Awesome Adventure'), NewBucketList,
+        self.assertIsInstance(self.new_user.view_list('Awesome Adventure'), Activity,
                               msg="View did not return bucket list")
 
     def test_bucket_list_delete(self):

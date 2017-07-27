@@ -1,8 +1,17 @@
 [report]
-omit=
-/python?.?/
-site-packages/
-site-packages/nose/
-tests/
+omit= */python?.?/*
+      */site-packages/*
+      */site-packages/nose/*
+      */tests/*
+      */asyncio/*
+      */concurrent/*
+      */multiprocessing/*
+      */ctypes/*
+      */decimal.py
+      */html/*
+      */mimetypes.py
+      */numbers.py
+      */uuid.py
+      */hmac.py
 [html]
 directory = coverage_html

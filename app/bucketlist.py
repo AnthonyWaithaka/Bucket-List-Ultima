@@ -4,9 +4,9 @@ Store data for all bucketlists the user has and
 manage the bucketlists.
 """
 
-from .newbucketlist import NewBucketList
+from .activity import Activity
 
-class BucketLists(object):
+class BucketList(object):
     """BucketLists class -
     Stores records for the owner of the Bucketlists and
     the bucketlist names alongside their objects in the object
@@ -32,7 +32,7 @@ class BucketLists(object):
             if list_name == key:
                 return None
 
-        new_bucket_list = NewBucketList(list_name, list_year, list_month, list_quote)
+        new_bucket_list = Activity(list_name, list_year, list_month, list_quote)
         self.bucket_lists.update({list_name:new_bucket_list})
         return new_bucket_list
 

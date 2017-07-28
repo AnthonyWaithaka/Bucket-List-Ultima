@@ -143,6 +143,7 @@ def new_list():
     New list method
     """
     session['errormessage'] = None
+    session['messages'] = None
     username = session['loginuser']
     newlistname = request.form['newlistname']
     listyear = int(request.form['list_year'])

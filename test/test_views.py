@@ -65,7 +65,49 @@ class ViewsTestCase(unittest.TestCase):
                                                    'user':'guy3', 'pass':'aaa3',
                                                    'pass2':'aaa3'})
         login_response = self.app.post('/login/', data={'logemail':'guy3', 'logpassword':'aaa3'})
-        self.assertEqual(login_response.status_code, 200, msg="Did not return bucket_lists page")
+        self.assertEqual(login_response.status_code, 200, msg="Did not enter login verification page")
+
+    def test_bucketlists_status_code(self):
+        """Test HTTP GET request when user navigates to their account's bucket
+        list page
+        """
+        response = self.app.post('/signup/', data={'email':'guy4@yes.com', 'user':'guy4',
+                                                   'pass':'aaa4', 'pass2':'aaa4'})
+        login_response = self.app.post('/login/', data={'logemail':'guy4',
+                                                        'logpassword':'aaa4'})
+        bucketlist_page_request = self.app.get('/mylists')
+        self.assertEqual(bucketlist_page_request.status_code, 302,
+                         msg="Did not render bucketlists page")
+
+    def test_list_created_status_code(self):
+        """Test HTTP GET request when user creates a new bucketlist
+        """
+        response = self.app.post('/signup/', data={'email':'guy5@yes.com', 'user':'guy5',
+                                                   'pass':'aaa5', 'pass2':'aaa5'})
+        login_response = self.app.post('/login/', data={'logemail':'guy5',
+                                                        'logpassword':'aaa5'})
+        new_bucketlist_response = self.app.post('/newlist', data={'newlistname':'list_01',
+                                                                  'list_year':'2018',
+                                                                  'list_month':'3',
+                                                                  'list_quote':'zzz'})
+        bucketlist_page_request = self.app.get('/mylists')
+        self.assertEqual(bucketlist_page_request.status_code, 302,
+                         msg="Did not render bucket_lists page")
+
+    def test_list_created_correct_data(self):
+        """Test data exists when user creates a new bucketlist with an invalid date input
+        """
+        response = self.app.post('/signup/', data={'email':'guy6@yes.com', 'user':'guy6',
+                                                   'pass':'aaa6', 'pass2':'aaa6'})
+        login_response = self.app.post('/login/', data={'logemail':'guy6',
+                                                        'logpassword':'aaa6'})
+        new_bucketlist_response = self.app.post('/newlist', data={'newlistname':'list_02',
+                                                                  'list_year':'2017',
+                                                                  'list_month':'3',
+                                                                  'list_quote':'zzz'})
+        bucketlist_page_request = self.app.get('/mylists')
+        self.assertTrue('deadline passed' in bucketlist_page_request.get_data(as_text=True),
+                        msg="Did not create new list")
 
 if __name__ == '__main__':
     unittest.main()
